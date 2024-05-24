@@ -9,7 +9,7 @@ typedef struct structLista {
 
 Lista *NewLista() {
     Lista* list;
-    malloc(sizeof(Lista));
+    list = malloc(sizeof(Lista));
     list->head = NULL;
     list->tail = NULL;
     list->size = 0;

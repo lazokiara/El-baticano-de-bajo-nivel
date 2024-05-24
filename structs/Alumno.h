@@ -1,12 +1,12 @@
 #include <stdlib.h>
 
 typedef struct structEstudiante {
-     char *nombre;
+    char *nombre;
     int edad;
 
 } Estudiante;
 
-Estudiante *NewEstudiante(char *nom, int ed) {
+Estudiante *NewEstudiante(char *nom[], int ed) {
     Estudiante *estudiante;
     malloc(sizeof(Estudiante));
     estudiante->edad = ed;

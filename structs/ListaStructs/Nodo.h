@@ -8,7 +8,7 @@ typedef struct structNodo {
 
 Nodo *NewNodo(Estudiante *estudiante) {
     Nodo *node;
-    malloc(sizeof(Nodo));
+    node = malloc(sizeof(Nodo));
     node->datos= estudiante;
     node->next = NULL;
     return node;
