@@ -7,12 +7,13 @@ int main() {
     Estudiante *nacho = NewEstudiante("Ignacio",20);
     Estudiante *agus = NewEstudiante("Agustin",25);
     
+    printf("Prueba\n");
 
-    printf(*nacho->nombre);
-    printf(nacho->edad);
+    printf("%s \n",nacho->nombre );
+    printf("%d \n",nacho->edad );
     
-    printf(*agus->nombre);
-    printf(agus->edad);
+    printf("%s \n",agus->nombre );
+    printf("%d \n",agus->edad );
     
 
     return 0;

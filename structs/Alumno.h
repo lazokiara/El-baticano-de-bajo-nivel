@@ -6,9 +6,9 @@ typedef struct structEstudiante {
 
 } Estudiante;
 
-Estudiante *NewEstudiante(char *nom[], int ed) {
+Estudiante *NewEstudiante(char *nom, int ed) {
     Estudiante *estudiante;
-    malloc(sizeof(Estudiante));
+    estudiante = malloc(sizeof(Estudiante));
     estudiante->edad = ed;
     estudiante->nombre = nom;
     return estudiante;
