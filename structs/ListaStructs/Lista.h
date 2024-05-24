@@ -6,19 +6,41 @@ typedef struct structLista {
     int size;
 } Lista;
 
+
+Lista *NewLista() {
+    Lista* list;
+    malloc(sizeof(Lista));
+    list->head = NULL;
+    list->tail = NULL;
+    list->size = 0;
+    return list;
+}
+
+void inserInicio(Lista *list, Estudiante* entrada){
+    Nodo *node = NewNodo(entrada);
+    node->next = list->head;
+    list->head = node;
+    list->size++;
+}
+void inserFinal(Lista *list, Estudiante *entrada) {
+    Nodo *node = NewNodo(entrada);
+    list->tail->next = node;
+    list->tail = node;
+    list->size++;
+}
+
+int Size(Lista *list) {
+    return  list->size;
+}
+
 /*
 Metodos:
-Crear Lista
 
 Agregar Elemento
-Al Principio, al final, entre medio
+entre medio
 
 Eliminar Elemento
 Al Principio, al final, entre medio
-
-IsEmpty
-
-Size
 
 Get Dato
 

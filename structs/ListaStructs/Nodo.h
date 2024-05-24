@@ -13,8 +13,7 @@ Nodo *NewNodo(Estudiante *estudiante) {
     node->next = NULL;
     return node;
 }
-/*
-Crear Nodo
 
-
-*/
+Estudiante *GetEstudiante(Nodo *node){
+    return node->datos;
+}
