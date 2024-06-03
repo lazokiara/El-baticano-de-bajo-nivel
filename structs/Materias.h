@@ -1,11 +1,11 @@
 #include <stdlib.h>
 //#include "ListaStructs/Lista.h"
 
-typedef struct Materia{
+typedef struct structMateria{
     char *nombre;
     int id_materia;
-   // Lista *alumnos;
-    Materia *correlativas;
+    struct structMateria *correlativas;
+    struct structMateria *prox;
 }Materia;
 
 Materia *NewMateria(char *nom, int id){
@@ -13,5 +13,6 @@ Materia *NewMateria(char *nom, int id){
     materia = malloc(sizeof(Materia));
     materia->id_materia = id;
     materia->nombre = nom;
+    materia-> prox = NULL;
     return materia;
 }

@@ -10,6 +10,7 @@ int main() {
     int edad;
     printf("Prueba\n");
     printf("Ingrese nombre y edad del estudiante a registrar:");
+   //gets(nombre);
     scanf("%s %d", nombre, &edad );
     Estudiante *alumno = NewEstudiante(nombre, edad);
     printf("Estudiante %s registrado correctamente \n",alumno->nombre );
