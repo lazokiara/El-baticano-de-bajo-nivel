@@ -12,11 +12,12 @@ int main()
     {
         printf("Ingrese la opcion de menu: \n 1: Ingresar Alumno. \n 5: Cerrar menu \n");
         scanf("%d", &opcion);
+
         switch (opcion)
         {
         case 0:
 
-            printf("Opcion 0");
+            printf("Opcion 1");
             char nombre[20];
             int edad;
             printf("Prueba\n");
@@ -29,20 +30,19 @@ int main()
             printf("Cantidad de alumnos: %d \n", mi_lista->size);
 
             
-            // scanf("%s %d", nombre, &edad);
             break;
         case 1:
-            printf("Opcion 1\n");
-            break;
-        case 2:
             printf("Opcion 2\n");
             break;
+        case 2:
+            printf("Opcion 3\n");
+            break;
         case 3:
-            printf("Cerrarndo menu\n");
+            printf("\n");
             break;
 
         case 5:
-            printf("Opcion 1\n");
+            printf("Opcion 5\n");
             printf("Cerrarndo menu\n");
             break;
 
