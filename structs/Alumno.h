@@ -13,3 +13,11 @@ Estudiante *NewEstudiante(char *nom, int ed) {
     estudiante->nombre = nom;
     return estudiante;
 }
+
+int getEdadDelEstudiante(Estudiante* alumn) {
+    return alumn->edad;
+}
+
+char* getNombreDelEstudiante(Estudiante* alumn) {
+    return alumn->nombre;
+}

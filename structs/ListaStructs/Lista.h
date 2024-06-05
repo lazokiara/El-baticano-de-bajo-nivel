@@ -1,4 +1,5 @@
 #include "Nodo.h"
+#include <stdlib.h> // Incluimos stdlib.h para malloc
 
 typedef struct structLista {
     Nodo *head;
@@ -6,31 +7,60 @@ typedef struct structLista {
     int size;
 } Lista;
 
-
-Lista *NewLista() {
-    Lista* list;
-    list = malloc(sizeof(Lista));
+Lista* NewLista() {
+    Lista* list = malloc(sizeof(Lista));
+    if (list == NULL) {
+        return NULL; // Manejo de error si malloc falla
+    }
     list->head = NULL;
     list->tail = NULL;
     list->size = 0;
     return list;
 }
 
-void inserInicio(Lista *list, Estudiante* entrada){
+void inserInicio(Lista *list, Estudiante* entrada) {
     Nodo *node = NewNodo(entrada);
-    node->next = list->head;
-    list->head = node;
-    list->size++;
-}
-void inserFinal(Lista *list, Estudiante *entrada) {
-    Nodo *node = NewNodo(entrada);
-    list->tail->next = node;
-    list->tail = node;
+    if (node == NULL) {
+        return; // Manejo de error si NewNodo falla
+    }
+    if (SizeOf(list) == 0) {
+        list->head = node; // Usamos node en lugar de entrada
+        list->tail = node; // Usamos node en lugar de entrada
+    } else {
+        node->next = list->head;
+        list->head = node;
+    }
     list->size++;
 }
 
-int Size(Lista *list) {
-    return  list->size;
+void inserFinal(Lista *list, Estudiante *entrada) {
+    Nodo *node = NewNodo(entrada);
+    if (node == NULL) {
+        return; // Manejo de error si NewNodo falla
+    }
+    if (SizeOf(list) == 0) {
+        list->head = node; // Usamos node en lugar de entrada
+        list->tail = node; // Usamos node en lugar de entrada
+    } else {
+        list->tail->next = node;
+        list->tail = node;
+    }
+    list->size++;
+}
+
+Estudiante* getEstudiantePorEdad(Lista* list, int edad) {
+    Nodo *cursor = list->head;
+    while (cursor != NULL) {
+        if (getEdadDelEstudiante(GetEstudiante(cursor)) == edad) {
+            return GetEstudiante(cursor);
+        }
+        cursor = cursor->next; // Avanzamos el cursor
+    }
+    return NULL;
+}
+
+int SizeOf(Lista *list) {
+    return list->size;
 }
 
 /*
