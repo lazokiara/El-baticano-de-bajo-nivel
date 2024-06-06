@@ -1,16 +1,35 @@
 #include "Nodo.h"
 #include <stdlib.h> // Incluimos stdlib.h para malloc
 
-typedef struct structLista
+typedef struct structListaDeEstudiantes
 {
-    Nodo *head;
-    Nodo *tail;
+    NodoEstudiante *head;
+    NodoEstudiante *tail;
     int size;
-} Lista;
+} ListaDeEstudiantes;
 
-Lista *NewLista()
+typedef struct structListaDeMaterias
 {
-    Lista *list = (Estudiante *)malloc(sizeof(Lista));
+    NodoMateria *head;
+    NodoMateria *tail;
+    int size;
+} ListaDeMaterias;
+
+
+ListaDeEstudiantes *NewListaDeEstudiante()
+{
+    ListaDeEstudiantes *list = (Estudiante*)malloc(sizeof(ListaDeEstudiantes));
+    // if (list == NULL) {
+    //     return NULL; // Manejo de error si malloc falla
+    // }
+    list->head = NULL;
+    list->tail = NULL;
+    list->size = 0;
+    return list;
+}
+ListaDeMaterias *NewListaDeMaterias()
+{
+    ListaDeMaterias *list = (Materia*)malloc(sizeof(ListaDeMaterias));
     // if (list == NULL) {
     //     return NULL; // Manejo de error si malloc falla
     // }
@@ -20,16 +39,17 @@ Lista *NewLista()
     return list;
 }
 
-int SizeOf(Lista *list)
+int SizeOf(ListaDeEstudiantes *list)
 {
     return list->size;
 }
+
 /// @brief Inserta un estudiante a la cabeza de la lista
 /// @param list
 /// @param entrada
-void inserInicio(Lista *list, Estudiante *entrada)
+void inserInicio(ListaDeEstudiantes *list, Estudiante *entrada)
 {
-    Nodo *node = NewNodo(entrada);
+    NodoEstudiante *node = NewNodoEstudiante(entrada);
     if (node->datos == NULL)
     {
         return;
@@ -50,9 +70,9 @@ void inserInicio(Lista *list, Estudiante *entrada)
 /// @brief Inserta un estudiante a la cola de la lista
 /// @param list
 /// @param entrada
-void inserFinal(Lista *list, Estudiante *entrada)
+void inserFinal(ListaDeEstudiantes *list, Estudiante *entrada)
 {
-    Nodo *node = NewNodo(entrada);
+    NodoEstudiante* node = NewNodoEstudiante(entrada);
     if (node->datos == NULL)
     {
         return; 
@@ -71,9 +91,9 @@ void inserFinal(Lista *list, Estudiante *entrada)
 }
 
 /// @brief Inserta un elemento de forma ordenada. Es O(n) pero con mejoras que lo pueden agilizar
-/// @param list
-/// @param entrada
-void insertarOrdenadamente(Lista *list, Estudiante *entrada)
+/// @param list 
+/// @param entrada 
+void insertarOrdenadamente(ListaDeEstudiantes *list, Estudiante *entrada)
 {
     if (SizeOf(list) < 1 || list->head->datos->edad > entrada->edad)
     {
@@ -87,9 +107,9 @@ void insertarOrdenadamente(Lista *list, Estudiante *entrada)
     }
 
     //Nodo a ingresar apunta al head
-    Nodo *ingreso = NewNodo(entrada);
+    NodoEstudiante *ingreso = NewNodoEstudiante(entrada);
     ingreso->next = list->head;
-    //Nodo *cursor = NewNodo(list->head);
+    //NodoEstudiante *cursor = NewNodoEstudiante(list->head);
 
     while (ingreso->next->next != NULL)
     {
@@ -108,32 +128,31 @@ void insertarOrdenadamente(Lista *list, Estudiante *entrada)
     }
 }
 
-
-// FALTA
-void eliminarEstudiante(Lista *list, Estudiante *estudiante)
-{
-
-
-    Nodo* iterador = NewNodo(estudiante);
-    
-    if (getNombre(GetEstudiante(iterador)) == getNombre(GetEstudiante(list->head))  && getApellido(GetEstudiante(iterador))== getApellido(GetEstudiante(list->head)))
+void eliminarEstudiante(ListaDeEstudiantes* list,Estudiante* estudiante){
+    NodoEstudiante *actual= list->head;
+    NodoEstudiante *anterior = NULL;
+    while ((actual != NULL) && actual->datos->edad != estudiante->edad)
     {
-        list->head->next; 
-        free(list->head);
-        free(iterador);
-        
+        anterior = actual;
+        actual = actual->next;
     }
-    
-    iterador->next = list->head;
-
-    while (iterador->next != NULL)
+    if (actual == NULL)
     {
-        if (getNombre(GetEstudiante(iterador->next->next)) == getNombre(GetEstudiante(iterador)) && getApellido(GetEstudiante(iterador->next))== getApellido(GetEstudiante(iterador)))
+        if (list->head){ printf("Lista vacia \n");}
+        else {printf("No se encontro el elemento en la lista \n");}  
+    }
+    else{
+        if (list->head == actual)
         {
-           
+            list->head = actual->next;
         }
+        else{
+            anterior->next = actual->next;
+        }
+        free(actual);
         
     }
+    
     
 }
 
@@ -141,12 +160,25 @@ void eliminarEstudiante(Lista *list, Estudiante *estudiante)
 /// @param list
 /// @param edad
 /// @return Devuelve el primer estudiante que se encuentra en la lista a partir de una edad
-Estudiante *getEstudiantePorEdad(Lista *list, int edad)
+Estudiante *getEstudiantePorEdad(ListaDeEstudiantes *list, int edad)
 {
-    Nodo *cursor = list->head;
+    NodoEstudiante *cursor = list->head;
     while (cursor != NULL)
     {
         if (getEdad(GetEstudiante(cursor)) == edad)
+        {
+            return GetEstudiante(cursor);
+        }
+        cursor = cursor->next;
+    }
+    return NULL;
+}
+Estudiante *getEstudiantePorNombre(ListaDeEstudiantes *list, char nombre)
+{
+    NodoEstudiante *cursor = list->head;
+    while (cursor != NULL)
+    {
+        if (getNombre(GetEstudiante(cursor)) == nombre)
         {
             return GetEstudiante(cursor);
         }
@@ -158,9 +190,9 @@ Estudiante *getEstudiantePorEdad(Lista *list, int edad)
 /// @brief Imprime todos los estudiantes que tengan la edad ingresada
 /// @param list
 /// @param edad
-void imprimirEstudiantesPorEdad(Lista *list, int edad)
+void imprimirEstudiantesPorEdad(ListaDeEstudiantes *list, int edad)
 {
-    Nodo *cursor = list->head;
+    NodoEstudiante *cursor = list->head;
     if (cursor == NULL)
     {
         printf("El sistema no tiene estudiantes.\n");
@@ -174,3 +206,30 @@ void imprimirEstudiantesPorEdad(Lista *list, int edad)
         cursor = cursor->next;
     }
 }
+
+/// @brief Inserta un estudiante a la cola de la lista
+/// @param list
+/// @param entrada
+void addMateria(ListaDeMaterias *list, Materia *materia)
+{
+    NodoMateria *node = NewNodoMateria(materia);
+    if (node == NULL)
+    {
+        return; // Manejo de error si NewNodo falla
+    }
+    if (SizeOf(list) == 0)
+    {
+        list->head = node;
+        list->tail = node;
+    }
+    else
+    {
+        list->tail->next = node;
+        list->tail = node;
+    }
+    list->size++;
+}
+
+// void enlistarAlumnoEnMateria(Materia *materia, Estudiante *estudiante){
+//     insertarOrdenadamente(materia->alumnos, estudiante);
+// }

@@ -6,11 +6,11 @@
 int main()
 {
     int opcion = 0;
-    Lista *lista_de_estudiante = NewLista();
+    ListaDeEstudiantes *lista_de_estudiante = NewListaDeEstudiante();
 
     while (opcion != 5)
     {
-        printf("Ingrese la opcion del menu: \n 1: Ingresar Alumno. \n 2: Listar Alumnos. \n 3: Buscar alumno \n 5: Cerrar menu \n");
+        printf("Ingrese la opcion del menu: \n 1: Ingresar Alumno. \n 2: Listar Alumnos. \n 3: Buscar alumno. \n 4: Eliminar alumno: \n 5: Cerrar menu \n");
         scanf("%d", &opcion);
 
         switch (opcion)
@@ -44,7 +44,7 @@ int main()
                 break;
             }
 
-            Nodo *cursor = lista_de_estudiante->head;
+            NodoEstudiante *cursor = lista_de_estudiante->head;
             for (int i = 0; i < SizeOf(lista_de_estudiante); i++)
             {
                 Estudiante *estudiante = GetEstudiante(cursor);
@@ -73,8 +73,12 @@ int main()
         }
         case 4:
         {
-            printf("Opcion 4\n");
-            printf("\n");
+            printf("Eliminar alumno\n ------------------------- \n Ingrese edad: ");
+            int edad_buscada;
+            scanf("%d", &edad_buscada);
+            Estudiante *alumno = getEstudiantePorEdad(lista_de_estudiante, edad_buscada);
+            eliminarEstudiante(lista_de_estudiante, alumno);
+            printf("Estudiante eliminado\n ------------------------- \n \n");
             break;
         }
         case 5:

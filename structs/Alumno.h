@@ -53,6 +53,7 @@ char* getNombre(Estudiante *alumn)
     return alumn->nombre;
 }
 
+
 char *getApellido(Estudiante *alumn)
 {
     return alumn->apellido;
