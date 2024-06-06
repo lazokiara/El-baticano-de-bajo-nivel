@@ -6,7 +6,7 @@
 int main()
 {
     int opcion = 0;
-    Lista *lista_de_estudiante = NewLista();
+    ListaDeEstudiantes *lista_de_estudiante = NewListaDeEstudiante();
 
     while (opcion != 5)
     {
@@ -42,7 +42,7 @@ int main()
                 break;
             }
 
-            Nodo *cursor = lista_de_estudiante->head;
+            NodoEstudiante *cursor = lista_de_estudiante->head;
             for (int i = 0; i < SizeOf(lista_de_estudiante); i++)
             {
                 Estudiante *estudiante = GetEstudiante(cursor);

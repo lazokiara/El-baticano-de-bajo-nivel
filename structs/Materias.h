@@ -1,11 +1,12 @@
 #include <stdlib.h>
-//#include "ListaStructs/Lista.h"
+//#include "Lista.h"
 
 typedef struct structMateria{
     char *nombre;
     int id_materia;
     struct structMateria *correlativas;
     struct structMateria *prox;
+    ListaDeEstudiantes *alumnos;
 }Materia;
 
 Materia *NewMateria(char *nom, int id){
