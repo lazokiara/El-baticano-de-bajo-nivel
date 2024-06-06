@@ -10,7 +10,7 @@ typedef struct structMateria{
 
 Materia *NewMateria(char *nom, int id){
     Materia *materia;
-    materia = malloc(sizeof(Materia));
+    materia = (Materia*)malloc(sizeof(Materia));
     materia->id_materia = id;
     materia->nombre = nom;
     materia-> prox = NULL;
