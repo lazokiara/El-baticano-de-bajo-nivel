@@ -8,9 +8,14 @@ typedef struct structEstudiante {
 
 Estudiante *NewEstudiante(char *nom, int ed) {
     Estudiante *estudiante;
-    estudiante = malloc(sizeof(Estudiante));
+    estudiante = (Estudiante*)malloc(sizeof(Estudiante));
+     if (estudiante == NULL) {
+        printf("Error al asignar memoria\n");
+        exit(1);
+    }
+    strcpy(estudiante->nombre, nom);
     estudiante->edad = ed;
-    estudiante->nombre = nom;
+    //estudiante->nombre = nom;
     return estudiante;
 }
 

@@ -8,24 +8,28 @@ typedef struct structLista {
 } Lista;
 
 Lista* NewLista() {
-    Lista* list = malloc(sizeof(Lista));
-    if (list == NULL) {
-        return NULL; // Manejo de error si malloc falla
-    }
+    Lista* list = (Estudiante*)malloc(sizeof(Lista));
+    // if (list == NULL) {
+    //     return NULL; // Manejo de error si malloc falla
+    // }
     list->head = NULL;
     list->tail = NULL;
     list->size = 0;
     return list;
 }
 
+int SizeOf(Lista *list) {
+    return list->size;
+}
+
 void inserInicio(Lista *list, Estudiante* entrada) {
     Nodo *node = NewNodo(entrada);
     if (node == NULL) {
-        return; // Manejo de error si NewNodo falla
+        return; 
     }
     if (SizeOf(list) == 0) {
-        list->head = node; // Usamos node en lugar de entrada
-        list->tail = node; // Usamos node en lugar de entrada
+        list->head = node; 
+        list->tail = node; 
     } else {
         node->next = list->head;
         list->head = node;
@@ -33,14 +37,18 @@ void inserInicio(Lista *list, Estudiante* entrada) {
     list->size++;
 }
 
+
+/// @brief Inserta al Estudiante al inicio como nuevo Head
+/// @param list 
+/// @param entrada 
 void inserFinal(Lista *list, Estudiante *entrada) {
     Nodo *node = NewNodo(entrada);
     if (node == NULL) {
         return; // Manejo de error si NewNodo falla
     }
     if (SizeOf(list) == 0) {
-        list->head = node; // Usamos node en lugar de entrada
-        list->tail = node; // Usamos node en lugar de entrada
+        list->head = node; 
+        list->tail = node; 
     } else {
         list->tail->next = node;
         list->tail = node;
@@ -48,20 +56,22 @@ void inserFinal(Lista *list, Estudiante *entrada) {
     list->size++;
 }
 
+
+/// @brief Devuelve un estudiante a partir de una edad
+/// @param list 
+/// @param edad 
+/// @return 
 Estudiante* getEstudiantePorEdad(Lista* list, int edad) {
     Nodo *cursor = list->head;
     while (cursor != NULL) {
         if (getEdadDelEstudiante(GetEstudiante(cursor)) == edad) {
             return GetEstudiante(cursor);
         }
-        cursor = cursor->next; // Avanzamos el cursor
+        cursor = cursor->next; 
     }
     return NULL;
 }
 
-int SizeOf(Lista *list) {
-    return list->size;
-}
 
 /*
 Metodos:
