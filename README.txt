@@ -2,9 +2,9 @@ Consigna del TP final:
 
 Desarrollar un sistema de estudiantes en C. Debe permitir:
 
--Dar de alta, modificar, eliminar y listar estudiantes
+-Dar de //alta, modificar, eliminar y //listar estudiantes 
 -Buscar estudiantes por nombre
--Buscar estudiantes por rango de edad
+-//Buscar estudiantes por rango de edad
 
 Además cada estudiante puede anotarse en N materias.
 -Dar de alta, modificar, eliminar y listar materias

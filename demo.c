@@ -19,14 +19,16 @@ int main()
         {
             printf("Lista alumno\n ------------------------- \n \n");
             char nombre[20];
+            char apellido[20];
             int edad;
-            printf("Ingrese nombre y edad del estudiante a registrar: ");
-            scanf("%s %d", nombre, &edad);
+            printf("Ingrese Nombre, Apellido y Edad del estudiante a registrar: ");
+            scanf("%s %s %d", nombre, apellido, &edad);
 
-            Estudiante *alumno = NewEstudiante(nombre, edad);
-            insertarOrdenadamente(lista_de_estudiante, alumno);
+            Estudiante *alumno = NewEstudiante(nombre, apellido, edad);
 
-            printf("Estudiante %s registrado correctamente \n", alumno->nombre);
+            inserFinal(lista_de_estudiante, alumno);
+
+            printf("Estudiante %s %s registrado correctamente \n", getNombre(alumno), getApellido(alumno));
             printf("Cantidad de alumnos: %d \n", lista_de_estudiante->size);
             printf("\n");
             break;
@@ -46,7 +48,7 @@ int main()
             for (int i = 0; i < SizeOf(lista_de_estudiante); i++)
             {
                 Estudiante *estudiante = GetEstudiante(cursor);
-                printf("Estudiante: %s; Edad: %d \n", getNombreDelEstudiante(estudiante), getEdadDelEstudiante(estudiante));
+                imprimirEstudiante(estudiante);
                 cursor = cursor->next;
             }
             printf("\n");
@@ -64,6 +66,7 @@ int main()
                 printf("\n");
                 break;
             }
+            printf("\n");
             imprimirEstudiantesPorEdad(lista_de_estudiante, edad_buscada);
             printf("\n");
             break;
@@ -88,7 +91,7 @@ int main()
             break;
         }
         }
-        //system("cls");
+        // system("cls");
     }
 
     return 0;

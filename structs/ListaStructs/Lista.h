@@ -30,7 +30,7 @@ int SizeOf(Lista *list)
 void inserInicio(Lista *list, Estudiante *entrada)
 {
     Nodo *node = NewNodo(entrada);
-    if (node == NULL)
+    if (node->datos == NULL)
     {
         return;
     }
@@ -53,9 +53,9 @@ void inserInicio(Lista *list, Estudiante *entrada)
 void inserFinal(Lista *list, Estudiante *entrada)
 {
     Nodo *node = NewNodo(entrada);
-    if (node == NULL)
+    if (node->datos == NULL)
     {
-        return; // Manejo de error si NewNodo falla
+        return; 
     }
     if (SizeOf(list) == 0)
     {
@@ -69,9 +69,10 @@ void inserFinal(Lista *list, Estudiante *entrada)
     }
     list->size++;
 }
+
 /// @brief Inserta un elemento de forma ordenada. Es O(n) pero con mejoras que lo pueden agilizar
-/// @param list 
-/// @param entrada 
+/// @param list
+/// @param entrada
 void insertarOrdenadamente(Lista *list, Estudiante *entrada)
 {
     if (SizeOf(list) < 1 || list->head->datos->edad > entrada->edad)
@@ -84,25 +85,55 @@ void insertarOrdenadamente(Lista *list, Estudiante *entrada)
         inserFinal(list, entrada);
         return;
     }
-    Nodo *ingreso = NewNodo(entrada);
-    Nodo *cursor = NewNodo(list->head);
 
-    while (cursor != NULL)
+    //Nodo a ingresar apunta al head
+    Nodo *ingreso = NewNodo(entrada);
+    ingreso->next = list->head;
+    //Nodo *cursor = NewNodo(list->head);
+
+    while (ingreso->next->next != NULL)
     {
-        if (entrada->edad > cursor->datos->edad)
+        if (getEdad(GetEstudiante(ingreso->next->next)) >= getEdad(GetEstudiante(ingreso)))
         {
-            ingreso->next = cursor->next;
-            cursor->next = ingreso;
+            //Creo que es IMPOSIBLE :O
+            // ingreso->next->next= ingreso->next;
+            // ingreso->next = ingreso
             return;
         }
         else
         {
-            cursor = cursor->next;
+            //Iteramos sobre la lista
+            ingreso->next = ingreso->next->next;
         }
     }
 }
 
-void eliminarEstudiante(Lista* list,Estudiante* estudiante){
+
+// FALTA
+void eliminarEstudiante(Lista *list, Estudiante *estudiante)
+{
+
+
+    Nodo* iterador = NewNodo(estudiante);
+    
+    if (getNombre(GetEstudiante(iterador)) == getNombre(GetEstudiante(list->head))  && getApellido(GetEstudiante(iterador))== getApellido(GetEstudiante(list->head)))
+    {
+        list->head->next; 
+        free(list->head);
+        free(iterador);
+        
+    }
+    
+    iterador->next = list->head;
+
+    while (iterador->next != NULL)
+    {
+        if (getNombre(GetEstudiante(iterador->next->next)) == getNombre(GetEstudiante(iterador)) && getApellido(GetEstudiante(iterador->next))== getApellido(GetEstudiante(iterador)))
+        {
+           
+        }
+        
+    }
     
 }
 
@@ -115,7 +146,7 @@ Estudiante *getEstudiantePorEdad(Lista *list, int edad)
     Nodo *cursor = list->head;
     while (cursor != NULL)
     {
-        if (getEdadDelEstudiante(GetEstudiante(cursor)) == edad)
+        if (getEdad(GetEstudiante(cursor)) == edad)
         {
             return GetEstudiante(cursor);
         }
@@ -136,24 +167,10 @@ void imprimirEstudiantesPorEdad(Lista *list, int edad)
     }
     while (cursor != NULL)
     {
-        if (getEdadDelEstudiante(GetEstudiante(cursor)) == edad)
+        if (getEdad(GetEstudiante(cursor)) == edad)
         {
-            printf("Estudiante:%s \n", getNombreDelEstudiante(GetEstudiante(cursor)));
+            printf("Estudiante:%s %s\n", getNombre(GetEstudiante(cursor)), getApellido(GetEstudiante(cursor)));
         }
         cursor = cursor->next;
     }
 }
-
-/*
-Metodos:
-
-Agregar Elemento
-entre medio
-
-Eliminar Elemento
-Al Principio, al final, entre medio
-
-Get Dato
-
-Find Dato
-*/
