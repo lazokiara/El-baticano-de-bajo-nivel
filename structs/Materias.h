@@ -6,7 +6,7 @@ typedef struct structMateria{
     int id_materia;
     struct structMateria *correlativas;
     struct structMateria *prox;
-    ListaDeEstudiantes *alumnos;
+   // ListaDeEstudiantes *alumnos; no funciona import
 }Materia;
 
 Materia *NewMateria(char *nom, int id){
