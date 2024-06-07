@@ -129,30 +129,29 @@ void insertarOrdenadamente(ListaDeEstudiantes *list, Estudiante *entrada)
 }
 
 void eliminarEstudiante(ListaDeEstudiantes* list,Estudiante* estudiante){
-    NodoEstudiante *actual= list->head;
+    NodoEstudiante *actual = list->head;
     NodoEstudiante *anterior = NULL;
-    while ((actual != NULL) && actual->datos->edad != estudiante->edad)
-    {
+
+    while (actual != NULL && (actual->datos == NULL || actual->datos->edad != estudiante->edad)) {
         anterior = actual;
         actual = actual->next;
     }
-    if (actual == NULL)
-    {
-        if (list->head){ printf("Lista vacia \n");}
-        else {printf("No se encontro el elemento en la lista \n");}  
-    }
-    else{
-        if (list->head == actual)
-        {
-            list->head = actual->next;
+
+    if (actual == NULL) {
+        if (list->head) {
+            printf("Lista vacia \n");
+        } else {
+            printf("No se encontro el elemento en la lista \n");
         }
-        else{
+    } else {
+        if (list->head == actual) {
+            list->head = actual->next;
+        } else {
             anterior->next = actual->next;
         }
-        free(actual);
         
+        free(actual);
     }
-    
     
 }
 
@@ -230,6 +229,6 @@ void addMateria(ListaDeMaterias *list, Materia *materia)
     list->size++;
 }
 
-// void enlistarAlumnoEnMateria(Materia *materia, Estudiante *estudiante){
-//     insertarOrdenadamente(materia->alumnos, estudiante);
-// }
+ void enlistarAlumnoEnMateria(Materia *materia, Estudiante *estudiante){
+     insertarOrdenadamente(materia->alumnos, estudiante);
+ }

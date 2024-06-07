@@ -1,12 +1,12 @@
 #include <stdlib.h>
-//#include "Lista.h"
+struct ListaDeEstudiantes;
 
 typedef struct structMateria{
     char *nombre;
     int id_materia;
     struct structMateria *correlativas;
     struct structMateria *prox;
-   // ListaDeEstudiantes *alumnos; no funciona import
+    struct structListaDeEstudiantes *alumnos;
 }Materia;
 
 Materia *NewMateria(char *nom, int id){
