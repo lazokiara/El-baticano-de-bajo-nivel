@@ -2,6 +2,29 @@ Consigna del TP final:
 
 Desarrollar un sistema de estudiantes en C. Debe permitir:
 
+PRINCIPAL:
+-Modificar estudiante
+-Eliminar estudiante (por nombre o dni)
+
+-Eliminar, modificar materia
+-Anotarse a materia
+-Rendir materia
+
+2 PUNTOS SECUNDARIOS PARA APROBAR:
+-paginado
+-poder elegir el estudiante/materia de un listado reducido
+-generar estudiantes de prueba y materias aleatorias de forma masiva
+-estadísticas de los estudiantes y materias, etc.
+-árboles de correlatividad de materias
+-qué pasa si una materia anterior está desaprobada? Puede anotarse?
+-cálculo de promedios.
+-archivo de configuración general donde se especifican las variables del sistema.
+-mejoras en la interfaz de usuario
+-tests unitarios
+-Persistencia en CSV
+
+
+
 -Dar de //alta, modificar, eliminar y //listar estudiantes 
 -Buscar estudiantes por nombre
 -//Buscar estudiantes por rango de edad

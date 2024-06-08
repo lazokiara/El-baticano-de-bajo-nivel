@@ -114,7 +114,7 @@ void eliminarEstudiante(ListaDeEstudiantes *list, Estudiante *estudiante)
     NodoEstudiante *actual = list->head;
     NodoEstudiante *anterior = NULL;
 
-    while (actual != NULL && (actual->datos == NULL || actual->datos->edad != estudiante->edad))
+    while (actual != NULL && (actual->datos == NULL || actual->datos->legajo != estudiante->legajo))
     {
         anterior = actual;
         actual = actual->next;
@@ -144,31 +144,19 @@ void eliminarEstudiante(ListaDeEstudiantes *list, Estudiante *estudiante)
 
         free(actual);
     }
+    list->size--;
 }
 
 // Sin Usar
 /// @param list
 /// @param edad
 /// @return Devuelve el primer estudiante que se encuentra en la lista a partir de una edad
-Estudiante *getEstudiantePorEdad(ListaDeEstudiantes *list, int edad)
+Estudiante *getEstudiantePorLegajo(ListaDeEstudiantes *list, int legajo)
 {
     NodoEstudiante *cursor = list->head;
     while (cursor != NULL)
     {
-        if (getEdad(GetEstudiante(cursor)) == edad)
-        {
-            return GetEstudiante(cursor);
-        }
-        cursor = cursor->next;
-    }
-    return NULL;
-}
-Estudiante *getEstudiantePorNombre(ListaDeEstudiantes *list, char nombre)
-{
-    NodoEstudiante *cursor = list->head;
-    while (cursor != NULL)
-    {
-        if (getNombre(GetEstudiante(cursor)) == nombre)
+        if (getLegajo(GetEstudiante(cursor)) == legajo)
         {
             return GetEstudiante(cursor);
         }
@@ -180,7 +168,7 @@ Estudiante *getEstudiantePorNombre(ListaDeEstudiantes *list, char nombre)
 /// @brief Imprime todos los estudiantes que tengan la edad ingresada
 /// @param list
 /// @param edad
-void imprimirEstudiantesPorEdad(ListaDeEstudiantes *list, int edad)
+void imprimirEstudiantesPorRangoDeEdad(ListaDeEstudiantes *list, int edadMin, int edadMax)
 {
     NodoEstudiante *cursor = list->head;
     if (cursor == NULL)
@@ -189,9 +177,9 @@ void imprimirEstudiantesPorEdad(ListaDeEstudiantes *list, int edad)
     }
     while (cursor != NULL)
     {
-        if (getEdad(GetEstudiante(cursor)) == edad)
+        if (edadMin <= getEdad(GetEstudiante(cursor)) && getEdad(GetEstudiante(cursor)) <= edadMax)
         {
-            printf("Estudiante:%s %s\n", getNombre(GetEstudiante(cursor)), getApellido(GetEstudiante(cursor)));
+            imprimirEstudiante(GetEstudiante(cursor));
         }
         cursor = cursor->next;
     }

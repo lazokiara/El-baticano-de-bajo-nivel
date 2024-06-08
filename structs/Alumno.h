@@ -7,16 +7,18 @@ typedef struct structEstudiante
     char *nombre;
     char *apellido;
     int edad;
+    int legajo;
 
 } Estudiante;
 
-Estudiante *NewEstudiante(char *nom, char *ap, int ed);
+Estudiante *NewEstudiante(char *nom, char *ap, int ed, int legajo);
 void imprimirEstudiante(Estudiante* estudiante);
 int getEdad(Estudiante *alumn);
+int getLegajo(Estudiante *alumn);
 char* getNombre(Estudiante *alumn);
 char *getApellido(Estudiante *alumn);
 
-Estudiante *NewEstudiante(char *nom, char *ap, int ed)
+Estudiante *NewEstudiante(char *nom, char *ap, int ed, int leg)
 {
     Estudiante *estudiante;
     estudiante = (Estudiante *)malloc(sizeof(Estudiante));
@@ -36,16 +38,23 @@ Estudiante *NewEstudiante(char *nom, char *ap, int ed)
     strcpy(estudiante->nombre, nom);
     strcpy(estudiante->apellido, ap);
     estudiante->edad = ed;
+    estudiante->legajo = leg;
     return estudiante;
 }
 
 void imprimirEstudiante(Estudiante* estudiante){
-    printf("Estudiante: %s %s; Edad: %d\n",getNombre(estudiante),getApellido(estudiante),getEdad(estudiante));
+    if (estudiante != NULL) {
+    printf("Estudiante: %s %s \n----Edad: %d\n----Legajo: %d \n\n",getNombre(estudiante),getApellido(estudiante),getEdad(estudiante),getLegajo(estudiante));
+    }
 }
 
 int getEdad(Estudiante *alumn)
 {
     return alumn->edad;
+}
+
+int getLegajo(Estudiante* alumn){
+    return alumn->legajo;
 }
 
 char* getNombre(Estudiante *alumn)

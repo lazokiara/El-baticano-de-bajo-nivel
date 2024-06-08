@@ -48,14 +48,24 @@ int main()
                 {
                 case 1:
                 {
-                    printf("Lista alumno\n ------------------------- \n \n");
+                    printf("Agregar alumno\n ------------------------- \n");
                     char nombre[20];
                     char apellido[20];
                     int edad;
-                    printf("Ingrese Nombre, Apellido y Edad del estudiante a registrar: ");
-                    scanf("%s %s %d", nombre, apellido, &edad);
-
-                    Estudiante *alumno = NewEstudiante(nombre, apellido, edad);
+                    int legajo;
+                    printf("\nIngrese Nombre y Apellido del estudiante a registrar: ");
+                    scanf("%s %s", nombre, apellido);
+                    printf("\nIngrese la Edad: ");
+                    scanf("%d", &edad);
+                    printf("\nIngrese el Legajo: ");
+                    scanf("%d", &legajo);
+                    Estudiante *yaExiste = getEstudiantePorLegajo(lista_de_estudiante, legajo);
+                    if (yaExiste != NULL)
+                    {
+                        printf("\nEl legajo ya pertenece a otro alumno. No se ingresara al alumno.\n\n");
+                        break;
+                    }
+                    Estudiante *alumno = NewEstudiante(nombre, apellido, edad, legajo);
 
                     inserFinal(lista_de_estudiante, alumno);
 
@@ -88,29 +98,55 @@ int main()
                 }
                 case 3:
                 {
-                    printf("Buscar Alumno\n ------------------------- \n Ingrese edad: ");
-                    int edad_buscada;
-                    scanf("%d", &edad_buscada);
-
-                    if (edad_buscada < 1)
+                    printf("Buscar Alumnos por rango de edad\n ------------------------- \nIngrese rango de edad (minimo y maximo):  ");
+                    int edad_min;
+                    int edad_max;
+                    scanf("%d %d", &edad_min, &edad_max);
+                    printf("\n\n");
+                    if (edad_min < 1)
                     {
-                        printf("Edad invalida.\n");
+                        printf("Edad minima invalida.\n");
                         printf("\n");
                         break;
                     }
-                    printf("\n");
-                    imprimirEstudiantesPorEdad(lista_de_estudiante, edad_buscada);
+                    printf("Listado de Estudiantes por Rango de edad: \n");
+                    imprimirEstudiantesPorRangoDeEdad(lista_de_estudiante, edad_min, edad_max);
                     printf("\n");
                     break;
                 }
                 case 4:
                 {
-                    printf("Eliminar alumno\n ------------------------- \n Ingrese edad: ");
-                    int edad_buscada;
-                    scanf("%d", &edad_buscada);
-                    Estudiante *alumno = getEstudiantePorEdad(lista_de_estudiante, edad_buscada);
-                    eliminarEstudiante(lista_de_estudiante, alumno);
-                    printf("Estudiante eliminado\n ------------------------- \n \n");
+                    printf("Eliminar alumno\n ------------------------- \n Ingrese legajo: ");
+                    int legajo_buscado;
+                    scanf("%d", &legajo_buscado);
+                    Estudiante *alumno = getEstudiantePorLegajo(lista_de_estudiante, legajo_buscado);
+                    if (alumno == NULL)
+                    {
+                        printf("El Legajo ingresado no pertenece a ningun estudiante del sistema.");
+                        break;
+                    }
+                    else
+                    {
+                        printf("Estudiante a eliminar: ");
+                        imprimirEstudiante(alumno);
+                        printf("\n 1: Confirmar eliminarcion. \n 2: Cancelar. \n");
+                        int confirmacion;
+                        scanf("%d", &confirmacion);
+                        if (confirmacion == 1)
+                        {
+                            eliminarEstudiante(lista_de_estudiante, alumno);
+                            printf("Estudiante eliminado\n ------------------------- \n \n");
+                        }
+                        else if (confirmacion == 2)
+                        {
+                            printf("Cancelando... \n");
+                        }
+                        else
+                        {
+                            printf("Intente nuevamente. \n");
+                        }
+                    }
+
                     break;
                 }
                 case 5:
