@@ -239,8 +239,3 @@ void addMateria(ListaDeMaterias *list, Materia *materia)
     }
     list->size++;
 }
-
- void enlistarAlumnoEnMateria(Materia *materia, Estudiante *estudiante){
-     insertarOrdenadamente(materia->alumnos, estudiante);
- }
- 

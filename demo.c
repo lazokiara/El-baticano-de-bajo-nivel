@@ -29,7 +29,6 @@ int main()
     int opcion_principal = 0;
     ListaDeEstudiantes *lista_de_estudiante = NewListaDeEstudiante();
     ListaDeMaterias *lista_de_materias = NewListaDeMaterias();
-    ListaDeMaterias *lista_de_materias = NewListaDeMaterias();
 
     while (opcion_principal != 3)
     {
@@ -146,7 +145,6 @@ int main()
                     scanf("%s ", nombre);
                     Materia *materia = NewMateria(nombre);
                     addMateria(lista_de_materias,materia);
-                    loadingBar();
                     printf("Materia %s registrada correctamente \n", getNombreMateria(materia));
                     printf("Cantidad de materias: %d \n", lista_de_materias->size);
                     printf("\n");
@@ -172,11 +170,13 @@ int main()
                     }
                     printf("\n");
                     }
+                    break;
                 }
                 default:
                 {
                     printf("Opcion invalida. Ingrese un numero del 1 al 5\n");
                     printf("\n");
+                    opcion_materia = 0;
                     break;
                 }
                 }
@@ -193,8 +193,10 @@ int main()
         default:
           printf("Opcion invalida. Ingrese un numero del 1 al 3\n");
               printf("\n");
+              opcion_principal = 0;
              break;
          }
+         break;
         }
 
         // system("cls");
