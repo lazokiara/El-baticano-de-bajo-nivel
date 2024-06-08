@@ -13,7 +13,7 @@ typedef struct structListaDeEstudiantes
 
 ListaDeEstudiantes *NewListaDeEstudiante()
 {
-    ListaDeEstudiantes *list = (ListaDeEstudiantes*)malloc(sizeof(ListaDeEstudiantes));
+    ListaDeEstudiantes *list = (ListaDeEstudiantes *)malloc(sizeof(ListaDeEstudiantes));
 
     list->head = NULL;
     list->tail = NULL;
@@ -72,7 +72,7 @@ void inserFinal(ListaDeEstudiantes *list, Estudiante *entrada)
     list->size++;
 }
 
-/// @brief Inserta un elemento de forma ordenada. Es O(n) pero con mejoras que lo pueden agilizar
+/// @brief Inserta un elemento de forma ordenada. Es O(n) pero con mejoras que lo pueden agilizar a O(1)
 /// @param list
 /// @param entrada
 void insertarOrdenadamente(ListaDeEstudiantes *list, Estudiante *entrada)
@@ -97,17 +97,14 @@ void insertarOrdenadamente(ListaDeEstudiantes *list, Estudiante *entrada)
     {
         if (getEdad(GetEstudiante(ingreso->next->next)) >= getEdad(GetEstudiante(ingreso)))
         {
-            // Creo que es IMPOSIBLE :O
-            //  ingreso->next->next= ingreso->next;
-            //  ingreso->next = ingreso
+            Estudiante *aux = ingreso->next->next;
+            ingreso->next->next = ingreso;
+            ingreso->next = aux;
             return;
         }
-        else
-        {
-            // Iteramos sobre la lista
-            ingreso->next = ingreso->next->next;
-        }
+        ingreso->next = ingreso->next->next;
     }
+    list->size++;
 }
 
 void eliminarEstudiante(ListaDeEstudiantes *list, Estudiante *estudiante)
@@ -186,7 +183,6 @@ void imprimirEstudiantesPorRangoDeEdad(ListaDeEstudiantes *list, int edadMin, in
     }
 }
 
-
 // --------------------------------------------------- Lista Materias --------------------------------------------------- //
 
 typedef struct structListaDeMaterias
@@ -198,14 +194,15 @@ typedef struct structListaDeMaterias
 
 ListaDeMaterias *NewListaDeMaterias()
 {
-    ListaDeMaterias *list = (ListaDeMaterias*)malloc(sizeof(ListaDeMaterias));
+    ListaDeMaterias *list = (ListaDeMaterias *)malloc(sizeof(ListaDeMaterias));
     list->head = NULL;
     list->tail = NULL;
     list->size = 0;
     return list;
 }
 
-int SizeOfMat(ListaDeMaterias* list){
+int SizeOfMat(ListaDeMaterias *list)
+{
     return list->size;
 }
 
@@ -228,8 +225,9 @@ void addMateria(ListaDeMaterias *list, Materia *materia)
     }
     list->size++;
 }
- void eliminarMateria(ListaDeMaterias *list, Materia *matteria){
-    
+void eliminarMateria(ListaDeMaterias *list, Materia *matteria)
+{
+
     NodoMateria *actual = list->head;
     NodoMateria *anterior = NULL;
 
@@ -264,8 +262,9 @@ void addMateria(ListaDeMaterias *list, Materia *materia)
         free(actual);
     }
     list->size--;
- }
- Materia* getMateriaPorNombre(ListaDeMaterias *list, char* nombre){
+}
+Materia *getMateriaPorNombre(ListaDeMaterias *list, char *nombre)
+{
     NodoMateria *materia = list->head;
     while (materia != NULL)
     {
@@ -276,8 +275,19 @@ void addMateria(ListaDeMaterias *list, Materia *materia)
         materia = materia->next;
     }
     return NULL;
- }
- void enlistarAlumnoEnMateria( Materia *materia, Estudiante *estudiante)
+}
+void enlistarAlumnoEnMateria(Materia *materia, Estudiante *estudiante)
 {
+    //NodoEstudiante *actual = materia->alumnos->head;
+    //NodoEstudiante *anterior = NULL;
+    // while (actual != NULL && (actual->datos == NULL || actual->datos->legajo != estudiante->legajo))
+    // {
+    //     if(actual->datos->legajo == estudiante->legajo){
+    //         printf("Alumno %s %s ya enlistado", actual->datos->nombre, actual->datos->apellido);
+    //         return;
+    // }
+    //     //anterior = actual;
+    //     actual = actual->next;
+    // }
     inserFinal(materia->alumnos, estudiante);
 }

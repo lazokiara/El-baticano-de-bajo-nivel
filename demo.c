@@ -69,7 +69,7 @@ int main()
                     }
                     Estudiante *alumno = NewEstudiante(nombre, apellido, edad, legajo);
 
-                    inserFinal(lista_de_estudiante, alumno);
+                    insertarOrdenadamente(lista_de_estudiante, alumno);
 
                     printf("Estudiante %s %s registrado correctamente \n", getNombre(alumno), getApellido(alumno));
                     printf("Cantidad de alumnos: %d \n", lista_de_estudiante->size);
@@ -213,7 +213,7 @@ int main()
                     break;
                 }
                 case 3:
-                {   
+                {
                     printf("Eliminar materia\n ------------------------- \n Ingrese nombre de la materia: ");
                     char materia_buscada[50];
                     scanf("%s", materia_buscada);
@@ -247,7 +247,8 @@ int main()
                     break;
                 }
                 case 4:
-                {   char nombre[20];
+                {
+                    char nombre[20];
                     printf("Ingrese la materia en la que desea ingresar el alumno: \n ");
                     scanf("%s", nombre);
                     Materia *materia = getMateriaPorNombre(lista_de_materias, nombre);
@@ -265,10 +266,16 @@ int main()
                         printf("Estudiante no registrado en el sistema \n");
                         break;
                     }
-                    
+                    Estudiante *yaExiste = getEstudiantePorLegajo(materia->alumnos, legajo);
+                    if (yaExiste != NULL)
+                    {
+                        printf("El alumno ya esta cursando la materia. \n");
+                        break;
+                    }
+
                     enlistarAlumnoEnMateria(materia, estudiante);
                     printf("Alumno enlistado correctamente. \n Cantidad de alumnos en %s: %d \n", materia->nombre, materia->alumnos->size);
-                    
+
                     break;
                 }
                 case 5:
