@@ -281,8 +281,13 @@ void addMateria(ListaDeMaterias *list, Materia *materia)
 {
     NodoEstudiante *actual = materia->alumnos->head;
     NodoEstudiante *anterior = NULL;
-    if(materia->alumnos->head->datos->legajo == estudiante->legajo){
-
+    while (actual != NULL && (actual->datos == NULL || actual->datos->legajo != estudiante->legajo))
+    {
+        if(actual->datos->legajo == estudiante->legajo){
+            printf("Alumno %s %s ya enlistado", actual->datos->nombre, actual->datos->apellido);
     }
-    insertarOrdenadamente(materia->alumnos, estudiante);
+        anterior = actual;
+        actual = actual->next;
+    }
+    inserFinal(materia->alumnos, estudiante);
 }

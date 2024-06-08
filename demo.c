@@ -247,8 +247,28 @@ int main()
                     break;
                 }
                 case 4:
-                {
-                    printf("Regresando al menu.");
+                {   char nombre[20];
+                    printf("Ingrese la materia en la que desea ingresar el alumno: \n ");
+                    scanf("%s", nombre);
+                    Materia *materia = getMateriaPorNombre(lista_de_materias, nombre);
+                    if (materia == NULL)
+                    {
+                        printf("Materia no existe");
+                        break;
+                    }
+                    int legajo;
+                    printf("Ingrese el legajo del alumno a enlistar: \n");
+                    scanf("%d", &legajo);
+                    Estudiante *estudiante = getEstudiantePorLegajo(lista_de_estudiante, legajo);
+                    if (estudiante == NULL)
+                    {
+                        printf("Estudiante no registrado en el sistema \n");
+                        break;
+                    }
+                    
+                    enlistarAlumnoEnMateria(materia, estudiante);
+                    printf("Alumno enlistado correctamente. \n Cantidad de alumnos en %s: %d \n", materia->nombre, materia->alumnos->size);
+                    
                     break;
                 }
                 case 5:
@@ -275,7 +295,7 @@ int main()
         case 3:
         {
             printf("Cerrando menu\n ------------------------- \n \n");
-            // loadingBar();
+            loadingBar();
             printf("\n");
             break;
         }
