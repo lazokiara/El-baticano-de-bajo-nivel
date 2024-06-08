@@ -219,7 +219,7 @@ int main()
 
                 default:
                 {
-                    printf("Opcion invalida. Ingrese un numero del 1 al 5\n");
+                    printf("Opcion invalida. Ingrese un numero del 1 al 6\n");
                     printf("\n");
                     opcion_materia = 0;
                     break;
