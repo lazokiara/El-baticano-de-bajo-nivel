@@ -279,15 +279,5 @@ void addMateria(ListaDeMaterias *list, Materia *materia)
  }
  void enlistarAlumnoEnMateria( Materia *materia, Estudiante *estudiante)
 {
-    NodoEstudiante *actual = materia->alumnos->head;
-    NodoEstudiante *anterior = NULL;
-    while (actual != NULL && (actual->datos == NULL || actual->datos->legajo != estudiante->legajo))
-    {
-        if(actual->datos->legajo == estudiante->legajo){
-            printf("Alumno %s %s ya enlistado", actual->datos->nombre, actual->datos->apellido);
-    }
-        anterior = actual;
-        actual = actual->next;
-    }
     inserFinal(materia->alumnos, estudiante);
 }
