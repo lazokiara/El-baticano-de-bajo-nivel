@@ -4,20 +4,22 @@
 #include <unistd.h>
 #include "structs/ListaStructs/Lista.h"
 
-
-void loadingBar() {
+void loadingBar()
+{
     int i;
     printf("\n\n\n\n");
     printf("\n\n\n\n\t\t\t\t\tLoading...\n\n");
     printf("\t\t\t\t\t");
-    for (i = 0; i < 26; i++) {
+    for (i = 0; i < 26; i++)
+    {
         printf("%c", 177);
         fflush(stdout);
         usleep(100000); // 100ms delay
     }
     printf("\r");
     printf("\t\t\t\t\t");
-    for (i = 0; i < 26; i++) {
+    for (i = 0; i < 26; i++)
+    {
         printf("%c", 219);
         fflush(stdout);
         usleep(100000); // 100ms delay
@@ -161,13 +163,14 @@ int main()
                     printf("\n");
                     break;
                 }
-             }
+                }
+            }
             break;
         }
         case 2:
         {
-            int opcion_materia = 0;
-            while (opcion_materia != 0)
+            int opcion_materia;
+            while (opcion_materia != 6)
             {
                 printf("Ingrese la opcion del menu: \n 1: Ingresar Materia. \n 2: Listar Materias. \n 3: Eliminar Materia. \n 4: Anotar alumnos. \n 5: Obtener alumnos cursantes. \n 6: Cerrar menu \n");
                 scanf("%d", &opcion_materia);
@@ -175,12 +178,12 @@ int main()
                 {
                 case 1:
                 {
-                   printf("Lista materias\n ------------------------- \n \n");
+                    printf("Lista materias\n ------------------------- \n \n");
                     char nombre[20];
                     printf("Ingrese el nombre de la materia: ");
                     scanf("%s ", nombre);
                     Materia *materia = NewMateria(nombre);
-                    addMateria(lista_de_materias,materia);
+                    addMateria(lista_de_materias, materia);
                     printf("Materia %s registrada correctamente \n", getNombreMateria(materia));
                     printf("Cantidad de materias: %d \n", lista_de_materias->size);
                     printf("\n");
@@ -197,17 +200,23 @@ int main()
                     }
                     else
                     {
-                    NodoMateria *mat = lista_de_materias->head;
-                    while (mat != NULL)
-                    {
-                        Materia *materia = GetMateria(mat);
-                        imprimirMateria(materia);
-                        mat = mat->next;
-                    }
-                    printf("\n");
+                        NodoMateria *mat = lista_de_materias->head;
+                        while (mat != NULL)
+                        {
+                            Materia *materia = GetMateria(mat);
+                            imprimirMateria(materia);
+                            mat = mat->next;
+                        }
+                        printf("\n");
                     }
                     break;
                 }
+                case 6:
+                {
+                    printf("Regresando al menu.");
+                    break;
+                }
+
                 default:
                 {
                     printf("Opcion invalida. Ingrese un numero del 1 al 5\n");
@@ -227,16 +236,14 @@ int main()
             break;
         }
         default:
-          printf("Opcion invalida. Ingrese un numero del 1 al 3\n");
-              printf("\n");
-              opcion_principal = 0;
-             break;
-         }
-         break;
+            printf("Opcion invalida. Ingrese un numero del 1 al 3\n");
+            printf("\n");
+            opcion_principal = 0;
+            break;
         }
-
-        // system("cls");
     }
+
+    // system("cls");
 
     return 0;
 }
