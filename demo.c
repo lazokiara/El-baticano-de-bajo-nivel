@@ -28,7 +28,7 @@ void loadingBar()
 
 int main()
 {
-    int opcion_principal = 0;
+    int opcion_principal;
     ListaDeEstudiantes *lista_de_estudiante = NewListaDeEstudiante();
     ListaDeMaterias *lista_de_materias = NewListaDeMaterias();
 
@@ -169,7 +169,7 @@ int main()
         }
         case 2:
         {
-            int opcion_materia;
+            int opcion_materia = 0;
             while (opcion_materia != 6)
             {
                 printf("Ingrese la opcion del menu: \n 1: Ingresar Materia. \n 2: Listar Materias. \n 3: Eliminar Materia. \n 4: Anotar alumnos. \n 5: Obtener alumnos cursantes. \n 6: Cerrar menu \n");
@@ -181,7 +181,7 @@ int main()
                     printf("Lista materias\n ------------------------- \n \n");
                     char nombre[20];
                     printf("Ingrese el nombre de la materia: ");
-                    scanf("%s ", nombre);
+                    scanf("%s", nombre);
                     Materia *materia = NewMateria(nombre);
                     addMateria(lista_de_materias, materia);
                     printf("Materia %s registrada correctamente \n", getNombreMateria(materia));
@@ -193,7 +193,7 @@ int main()
                 {
                     printf("Listar materias\n------------------------- \n \n");
 
-                    if (lista_de_materias->size < 1 || lista_de_materias->head == NULL)
+                    if (lista_de_materias->head == NULL || lista_de_materias->size < 1)
                     {
                         printf("El sistema no tiene materias registradas.\n");
                         printf("\n");
@@ -205,15 +205,31 @@ int main()
                         {
                             Materia *materia = GetMateria(mat);
                             imprimirMateria(materia);
+                            printf("\n");
                             mat = mat->next;
                         }
                         printf("\n");
                     }
                     break;
                 }
-                case 6:
+                case 3:
                 {
                     printf("Regresando al menu.");
+                    break;
+                }
+                case 4:
+                {
+                    printf("Regresando al menu.");
+                    break;
+                }
+                case 5:
+                {
+                    printf("Regresando al menu.");
+                    break;
+                }
+                case 6:
+                {
+                    printf("Regresando al menu...");
                     break;
                 }
 
@@ -221,7 +237,6 @@ int main()
                 {
                     printf("Opcion invalida. Ingrese un numero del 1 al 5\n");
                     printf("\n");
-                    opcion_materia = 0;
                     break;
                 }
                 }
@@ -231,15 +246,16 @@ int main()
         case 3:
         {
             printf("Cerrando menu\n ------------------------- \n \n");
-            loadingBar();
+            // loadingBar();
             printf("\n");
             break;
         }
         default:
+        {
             printf("Opcion invalida. Ingrese un numero del 1 al 3\n");
             printf("\n");
-            opcion_principal = 0;
             break;
+        }
         }
     }
 

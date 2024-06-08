@@ -1,5 +1,5 @@
 #include <stdlib.h>
-struct ListaDeEstudiantes;
+//borrar? struct ListaDeEstudiantes;
 
 typedef struct structMateria{
     char *nombre;
@@ -9,14 +9,15 @@ typedef struct structMateria{
 Materia *NewMateria(char *nom){
     Materia *materia;
     materia = (Materia*)malloc(sizeof(Materia));
-    materia->nombre = nom;
+    materia->nombre = (char *)malloc((strlen(nom) + 1) * sizeof(char));
+    strcpy(materia->nombre,nom);
     return materia;
 }
-char getNombreMateria(Materia *m){
+char* getNombreMateria(Materia *m){
     return m->nombre;
 }
 void imprimirMateria (Materia *materia){
-    printf("Materia: %s", getNombreMateria(materia));
+    printf("\nMateria: \n Nombre: %s", materia->nombre);
 }
 void getCursantes (Materia *m){
 

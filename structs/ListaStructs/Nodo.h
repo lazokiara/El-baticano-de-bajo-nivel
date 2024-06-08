@@ -1,5 +1,5 @@
 
-#include "../alumno.h"
+#include "../Estudiante.h"
 #include "../Materias.h"
 
 // ------------------------- Nodo Estudiante ------------------------- //
