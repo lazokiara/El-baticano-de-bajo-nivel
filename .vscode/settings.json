@@ -2,6 +2,7 @@
     "files.associations": {
         "stdio.h": "c",
         "nodo.h": "c",
-        "lista.h": "c"
+        "lista.h": "c",
+        "materias.h": "c"
     }
 }

@@ -12,7 +12,7 @@ typedef struct structListaDeEstudiantes
 
 ListaDeEstudiantes *NewListaDeEstudiante()
 {
-    ListaDeEstudiantes *list = (Estudiante *)malloc(sizeof(ListaDeEstudiantes));
+    ListaDeEstudiantes *list = (ListaDeEstudiantes*)malloc(sizeof(ListaDeEstudiantes));
 
     list->head = NULL;
     list->tail = NULL;
@@ -20,7 +20,7 @@ ListaDeEstudiantes *NewListaDeEstudiante()
     return list;
 }
 
-int SizeOf(ListaDeEstudiantes *list)
+int SizeOfEst(ListaDeEstudiantes *list)
 {
     return list->size;
 }
@@ -35,7 +35,7 @@ void inserInicio(ListaDeEstudiantes *list, Estudiante *entrada)
     {
         return;
     }
-    if (SizeOf(list) == 0)
+    if (SizeOfEst(list) == 0)
     {
         list->head = node;
         list->tail = node;
@@ -58,7 +58,7 @@ void inserFinal(ListaDeEstudiantes *list, Estudiante *entrada)
     {
         return;
     }
-    if (SizeOf(list) == 0)
+    if (SizeOfEst(list) == 0)
     {
         list->head = node;
         list->tail = node;
@@ -76,7 +76,7 @@ void inserFinal(ListaDeEstudiantes *list, Estudiante *entrada)
 /// @param entrada
 void insertarOrdenadamente(ListaDeEstudiantes *list, Estudiante *entrada)
 {
-    if (SizeOf(list) < 1 || list->head->datos->edad > entrada->edad)
+    if (SizeOfEst(list) < 1 || list->head->datos->edad > entrada->edad)
     {
         inserInicio(list, entrada);
         return;
@@ -201,11 +201,15 @@ typedef struct structListaDeMaterias
 
 ListaDeMaterias *NewListaDeMaterias()
 {
-    ListaDeMaterias *list = (Materia *)malloc(sizeof(ListaDeMaterias));
+    ListaDeMaterias *list = (ListaDeMaterias*)malloc(sizeof(ListaDeMaterias));
     list->head = NULL;
     list->tail = NULL;
     list->size = 0;
     return list;
+}
+
+int SizeOfMat(ListaDeMaterias* list){
+    return list->size;
 }
 
 void addMateria(ListaDeMaterias *list, Materia *materia)
@@ -213,9 +217,9 @@ void addMateria(ListaDeMaterias *list, Materia *materia)
     NodoMateria *node = NewNodoMateria(materia);
     if (node == NULL)
     {
-        return; // Manejo de error si NewNodo falla
+        return;
     }
-    if (SizeOf(list) == 0)
+    if (SizeOfMat(list) == 0)
     {
         list->head = node;
         list->tail = node;
