@@ -232,3 +232,4 @@ void addMateria(ListaDeMaterias *list, Materia *materia)
  void enlistarAlumnoEnMateria(Materia *materia, Estudiante *estudiante){
      insertarOrdenadamente(materia->alumnos, estudiante);
  }
+ 

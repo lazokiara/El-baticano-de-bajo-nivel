@@ -3,17 +3,21 @@ struct ListaDeEstudiantes;
 
 typedef struct structMateria{
     char *nombre;
-    int id_materia;
-    struct structMateria *correlativas;
-    struct structMateria *prox;
     struct structListaDeEstudiantes *alumnos;
 }Materia;
 
-Materia *NewMateria(char *nom, int id){
+Materia *NewMateria(char *nom){
     Materia *materia;
     materia = (Materia*)malloc(sizeof(Materia));
-    materia->id_materia = id;
     materia->nombre = nom;
-    materia-> prox = NULL;
     return materia;
+}
+char getNombreMateria(Materia *m){
+    return m->nombre;
+}
+void imprimirMateria (Materia *materia){
+    printf("Materia: %s", getNombreMateria(materia));
+}
+void getCursantes (Materia *m){
+
 }
