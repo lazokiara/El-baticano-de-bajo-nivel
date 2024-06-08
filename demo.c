@@ -69,7 +69,7 @@ int main()
                     }
                     Estudiante *alumno = NewEstudiante(nombre, apellido, edad, legajo);
 
-                    inserFinal(lista_de_estudiante, alumno);
+                    insertarOrdenadamente(lista_de_estudiante, alumno);
 
                     printf("Estudiante %s %s registrado correctamente \n", getNombre(alumno), getApellido(alumno));
                     printf("Cantidad de alumnos: %d \n", lista_de_estudiante->size);

@@ -3,6 +3,8 @@
         "stdio.h": "c",
         "nodo.h": "c",
         "lista.h": "c",
-        "materias.h": "c"
+        "materias.h": "c",
+        "string.h": "c",
+        "stdbool.h": "c"
     }
 }
