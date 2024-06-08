@@ -1,5 +1,6 @@
 #include "Nodo.h"
 #include <stdlib.h>
+#include <string.h>
 
 // --------------------------------------------------- Lista Estudiante --------------------------------------------------- //
 
@@ -185,10 +186,6 @@ void imprimirEstudiantesPorRangoDeEdad(ListaDeEstudiantes *list, int edadMin, in
     }
 }
 
-void enlistarAlumnoEnMateria(Materia *materia, Estudiante *estudiante)
-{
-    insertarOrdenadamente(materia->alumnos, estudiante);
-}
 
 // --------------------------------------------------- Lista Materias --------------------------------------------------- //
 
@@ -230,4 +227,62 @@ void addMateria(ListaDeMaterias *list, Materia *materia)
         list->tail = node;
     }
     list->size++;
+}
+ void eliminarMateria(ListaDeMaterias *list, Materia *matteria){
+    
+    NodoMateria *actual = list->head;
+    NodoMateria *anterior = NULL;
+
+    while (actual != NULL && (actual->datos == NULL || actual->datos->nombre != matteria->nombre))
+    {
+        anterior = actual;
+        actual = actual->next;
+    }
+
+    if (actual == NULL)
+    {
+        if (list->head)
+        {
+            printf("Lista vacia \n");
+        }
+        else
+        {
+            printf("No se encontro el elemento en la lista \n");
+        }
+    }
+    else
+    {
+        if (list->head == actual)
+        {
+            list->head = actual->next;
+        }
+        else
+        {
+            anterior->next = actual->next;
+        }
+
+        free(actual);
+    }
+    list->size--;
+ }
+ Materia* getMateriaPorNombre(ListaDeMaterias *list, char* nombre){
+    NodoMateria *materia = list->head;
+    while (materia != NULL)
+    {
+        if (strcmp(materia->datos->nombre, nombre) == 0)
+        {
+            return GetMateria(materia);
+        }
+        materia = materia->next;
+    }
+    return NULL;
+ }
+ void enlistarAlumnoEnMateria( Materia *materia, Estudiante *estudiante)
+{
+    NodoEstudiante *actual = materia->alumnos->head;
+    NodoEstudiante *anterior = NULL;
+    if(materia->alumnos->head->datos->legajo == estudiante->legajo){
+
+    }
+    insertarOrdenadamente(materia->alumnos, estudiante);
 }

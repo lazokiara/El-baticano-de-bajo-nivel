@@ -213,8 +213,37 @@ int main()
                     break;
                 }
                 case 3:
-                {
-                    printf("Regresando al menu.");
+                {   
+                    printf("Eliminar materia\n ------------------------- \n Ingrese nombre de la materia: ");
+                    char materia_buscada[50];
+                    scanf("%s", materia_buscada);
+                    Materia *materia = getMateriaPorNombre(lista_de_materias, materia_buscada);
+                    if (materia == NULL)
+                    {
+                        printf("El nombre ingresado no pertenece a ninguna materia del sistema. \n");
+                        break;
+                    }
+                    else
+                    {
+                        printf("Materia a eliminar: ");
+                        imprimirMateria(materia);
+                        printf("\n 1: Confirmar eliminarcion. \n 2: Cancelar. \n");
+                        int confirmacion;
+                        scanf("%d", &confirmacion);
+                        if (confirmacion == 1)
+                        {
+                            eliminarMateria(lista_de_materias, materia);
+                            printf("Materia eliminada\n ------------------------- \n \n");
+                        }
+                        else if (confirmacion == 2)
+                        {
+                            printf("Cancelando... \n");
+                        }
+                        else
+                        {
+                            printf("Intente nuevamente. \n");
+                        }
+                    }
                     break;
                 }
                 case 4:
