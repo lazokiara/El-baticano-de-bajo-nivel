@@ -104,6 +104,7 @@ void insertarOrdenadamente(ListaDeEstudiantes *list, Estudiante *entrada)
         }
         ingreso->next = ingreso->next->next;
     }
+    list->size++;
 }
 
 void eliminarEstudiante(ListaDeEstudiantes *list, Estudiante *estudiante)
@@ -277,10 +278,16 @@ Materia *getMateriaPorNombre(ListaDeMaterias *list, char *nombre)
 }
 void enlistarAlumnoEnMateria(Materia *materia, Estudiante *estudiante)
 {
-    NodoEstudiante *actual = materia->alumnos->head;
-    NodoEstudiante *anterior = NULL;
-    if (materia->alumnos->head->datos->legajo == estudiante->legajo)
-    {
-    }
-    insertarOrdenadamente(materia->alumnos, estudiante);
+    //NodoEstudiante *actual = materia->alumnos->head;
+    //NodoEstudiante *anterior = NULL;
+    // while (actual != NULL && (actual->datos == NULL || actual->datos->legajo != estudiante->legajo))
+    // {
+    //     if(actual->datos->legajo == estudiante->legajo){
+    //         printf("Alumno %s %s ya enlistado", actual->datos->nombre, actual->datos->apellido);
+    //         return;
+    // }
+    //     //anterior = actual;
+    //     actual = actual->next;
+    // }
+    inserFinal(materia->alumnos, estudiante);
 }
