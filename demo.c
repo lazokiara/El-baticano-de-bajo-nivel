@@ -29,6 +29,7 @@ int main()
     int opcion_principal = 0;
     ListaDeEstudiantes *lista_de_estudiante = NewListaDeEstudiante();
     ListaDeMaterias *lista_de_materias = NewListaDeMaterias();
+    ListaDeMaterias *lista_de_materias = NewListaDeMaterias();
 
     while (opcion_principal != 3)
     {
@@ -41,7 +42,7 @@ int main()
             int opcion_alumnos = 0;
             while (opcion_alumnos != 5)
             {
-                printf("Ingrese la opcion del menu: \n 1: Ingresar Alumno. \n 2: Listar Alumnos. \n 3: Buscar alumno. \n 4: Eliminar alumno: \n 5: Cerrar menu \n");
+                printf("Ingrese la opcion del menu: \n 1: Ingresar Alumno. \n 2: Listar Alumnos. \n 3: Buscar alumno. \n 4: Eliminar alumno: \n 5: Volver al menu principal \n");
                 scanf("%d", &opcion_alumnos);
 
                 switch (opcion_alumnos)
@@ -63,7 +64,7 @@ int main()
                     printf("Cantidad de alumnos: %d \n", lista_de_estudiante->size);
                     printf("\n");
                     break;
-                    }
+                }
                 case 2:
                 {
                     printf("Listar Estudiantes\n------------------------- \n \n");
@@ -75,14 +76,14 @@ int main()
                     }
                     else
                     {
-                    NodoEstudiante *cursor = lista_de_estudiante->head;
-                    while (cursor != NULL)
-                    {
-                        Estudiante *estudiante = GetEstudiante(cursor);
-                        imprimirEstudiante(estudiante);
-                        cursor = cursor->next;
-                    }
-                    printf("\n");
+                        NodoEstudiante *cursor = lista_de_estudiante->head;
+                        while (cursor != NULL)
+                        {
+                            Estudiante *estudiante = GetEstudiante(cursor);
+                            imprimirEstudiante(estudiante);
+                            cursor = cursor->next;
+                        }
+                        printf("\n");
                     }
                     break;
                 }
@@ -98,10 +99,10 @@ int main()
                         printf("\n");
                         break;
                     }
-                        printf("\n");
-                        imprimirEstudiantesPorEdad(lista_de_estudiante, edad_buscada);
-                        printf("\n");
-                        break;
+                    printf("\n");
+                    imprimirEstudiantesPorEdad(lista_de_estudiante, edad_buscada);
+                    printf("\n");
+                    break;
                 }
                 case 4:
                 {
@@ -115,7 +116,7 @@ int main()
                 }
                 case 5:
                 {
-                    printf("Cerrando menu\n ------------------------- \n \n");
+                    printf("Regresando...\n ------------------------- \n \n");
                     printf("\n");
                     break;
                 }
@@ -190,15 +191,12 @@ int main()
             break;
         }
         default:
-        printf("Opcion invalida. Ingrese un numero del 1 al 3\n");
+          printf("Opcion invalida. Ingrese un numero del 1 al 3\n");
               printf("\n");
-            break;
+             break;
+         }
         }
 
-    }
-    
-
-    
         // system("cls");
     }
 
