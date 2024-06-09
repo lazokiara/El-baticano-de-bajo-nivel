@@ -321,60 +321,31 @@ void modificarNombreMateria(Materia *materia, char *nom) {
 
 void enlistarAlumnoEnMateria(Materia *materia, Estudiante *estudiante)
 {
-    //NodoEstudiante *actual = materia->alumnos->head;
-    //NodoEstudiante *anterior = NULL;
-    // while (actual != NULL && (actual->datos == NULL || actual->datos->legajo != estudiante->legajo))
-    // {
-    //     if(actual->datos->legajo == estudiante->legajo){
-    //         printf("Alumno %s %s ya enlistado", actual->datos->nombre, actual->datos->apellido);
-    //         return;
-    // }
-    //     //anterior = actual;
-    //     actual = actual->next;
-    // }
     ListaDeEstudiantes *list_mat = NewListaDeEstudiante();
-    materia->alumnos= list_mat;
+    materia->alumnos = list_mat;
     inserFinal(list_mat, estudiante);
     materia->catn_alumnos++;
 }
-/*
-void enlistarAlumnoEnMateria(Materia materia, int legajo) {
-    NodoEstudiante nuevoNodo = (NodoEstudiante )malloc(sizeof(NodoEstudiante));
-    if (nuevoNodo == NULL) {
-        // Manejar error de memoria
-        return;
-    }
-    nuevoNodo->next = NULL;
 
-    // Verificar si el estudiante ya está en la lista
-    NodoEstudiantetemp = materia->estudiantes;
-    while (temp != NULL) {
-        if (temp->estudiante->legajo == legajo) {
-            // El estudiante ya está en la lista, no es necesario agregarlo nuevamente
-            free(nuevoNodo);
-            return;
-        }
-        temp = temp->next;
-    }
-
-    // El estudiante no está en la lista, entonces lo agregamos
-    Estudiante nuevoEstudiante = (Estudiante)malloc(sizeof(Estudiante));
-    if (nuevoEstudiante == NULL) {
-        // Manejar error de memoria
-        free(nuevoNodo);
-        return;
-    }
-    nuevoEstudiante->legajo = legajo;
-    nuevoNodo->estudiante = nuevoEstudiante;
-
-    if (materia->estudiantes == NULL) {
-        materia->estudiantes = nuevoNodo;
-    } else {
-        temp = materia->estudiantes;
-        while (temp->next != NULL) {
-            temp = temp->next;
-        }
-        temp->next = nuevoNodo;
-    }
+void eliminarAlumoDeMateria(Materia *mat, Estudiante *estudiante){
+    ListaDeEstudiantes *list_mat = NewListaDeEstudiante();
+    list_mat=mat->alumnos ;
+    eliminarEstudiante(list_mat, estudiante);
+    mat->catn_alumnos--;
 }
-*/
+void rendirMateria(Materia *mat, Estudiante *alumno, int promedio){
+    ListaDeEstudiantes *list_mat_a = NewListaDeEstudiante();
+    mat->alumnos_aprobados = list_mat_a;
+    ListaDeEstudiantes *list_mat_d = NewListaDeEstudiante();
+    mat->alumnos_desaprobados =  list_mat_d  ;
+    if(promedio >= 4){
+        inserFinal(list_mat_a, alumno);
+        mat->catn_alumnos_aprobados++;
+        printf("Alumno aprobo con un promedio de: %d \n", promedio);
+        return;
+    }
+    inserFinal(list_mat_d, alumno);
+    mat->catn_alumnos_desaprobados++;
+     printf("Alumno desaprobo con un promedio de: %d \n", promedio);
+
+}

@@ -15,7 +15,7 @@ void loadingBar()
     {
         printf("%c", 177);
         fflush(stdout);
-        usleep(100000); // 100ms delay
+        usleep(100000); 
     }
     printf("\r");
     printf("\t\t\t\t\t");
@@ -23,7 +23,7 @@ void loadingBar()
     {
         printf("%c", 219);
         fflush(stdout);
-        usleep(100000); // 100ms delay
+        usleep(100000); 
     }
     printf("\n\n");
 }
@@ -45,7 +45,7 @@ int main()
             int opcion_alumnos = 0;
             while (opcion_alumnos != 7)
             {
-                printf("Ingrese la opcion del menu: \n 1: Ingresar Alumno. \n 2: Listar Alumnos. \n 3: Buscar alumno. \n 4: Eliminar alumno: \n 5: Eliminar lista de alumnos. \n 6: Renombrar alumno. \n 7: Volver al menu principal \n");
+                printf("Ingrese la opcion del menu: \n 1: Ingresar Alumno. \n 2: Listar Alumnos. \n 3: Buscar alumnos por rango de edad. \n 4: Eliminar alumno: \n 5: Eliminar lista de alumnos. \n 6: Renombrar alumno. \n 7: Volver al menu principal \n");
                 scanf("%d", &opcion_alumnos);
 
                 switch (opcion_alumnos)
@@ -211,9 +211,9 @@ int main()
         case 2:
         {
             int opcion_materia = 0;
-            while (opcion_materia != 7)
+            while (opcion_materia != 9)
             {
-                printf("Ingrese la opcion del menu: \n 1: Ingresar Materia. \n 2: Listar Materias. \n 3: Eliminar Materia. \n 4: Eliminar lista de materias. \n 5: Cambiar nombre de materia. \n 6: Enlistar alumno en materia. \n 7: Cerrar menu. \n");
+                printf("Ingrese la opcion del menu: \n 1: Ingresar Materia. \n 2: Listar Materias. \n 3: Eliminar Materia. \n 4: Eliminar lista de materias. \n 5: Cambiar nombre de materia. \n 6: Enlistar alumno en materia. \n 7: Dar de baja de la materia a un alumno. \n 8: Promediar alumno por materia \n 9: Cerrar menu \n");
                 scanf("%d", &opcion_materia);
                 switch (opcion_materia)
                 {
@@ -353,7 +353,70 @@ int main()
                 }
                 case 7:
                 {
-                    printf("Regresando...\n ------------------------- \n \n");
+                    char nombre[20];
+                    printf("Ingrese la materia de la que desea eliminar el alumno: \n ");
+                    scanf("%s", nombre);
+                    Materia *materia = getMateriaPorNombre(lista_de_materias, nombre);
+                    if (materia == NULL)
+                    {
+                        printf("Materia no existe");
+                        break;
+                    }
+                    int legajo;
+                    printf("Ingrese el legajo del alumno a enlistar: \n");
+                    scanf("%d", &legajo);
+                    ListaDeEstudiantes *lista_aux = NewListaDeEstudiante();
+                    lista_aux = materia->alumnos;
+                    Estudiante *estudiante = getEstudiantePorLegajo(lista_aux, legajo);
+                    if (estudiante == NULL)
+                    {
+                        printf("Estudiante no registrado en la materia \n");
+                        break;
+                    }
+                    printf("¿Desea eliminar al alumno %s %s de %s?\n 1: Si. \n 2:No. \n ", estudiante->nombre, estudiante->apellido, materia->nombre);
+                    int confi = 0;
+                    scanf("%d", &confi);
+                    if (confi == 1)
+                        {
+                            loadingBar();
+                            eliminarAlumoDeMateria(materia, estudiante);
+                            printf("Alumno eliminado\n ------------------------- \n \n");
+                        }
+                        else if (confi == 2)
+                        {
+                            printf("Cancelando... \n");
+                        }
+                        else
+                        {
+                            printf("Intente nuevamente. \n");
+                        }
+                    
+                     break;
+                }
+                case 8:
+                {
+                    printf("Ingrese la materia: \n");
+                    char mat[50];
+                    scanf("%s", mat);
+                    Materia *materia = getMateriaPorNombre(lista_de_materias,mat);
+                    printf("Ingrese el legajo del alumno que rinde: \n");
+                    int leg;
+                    scanf("%d", &leg);
+                    ListaDeEstudiantes *lista_aux = NewListaDeEstudiante();
+                    lista_aux = materia->alumnos;
+                    Estudiante *estudiante = getEstudiantePorLegajo(lista_aux,leg);
+                    printf("Ingrese las notas a promediar:");
+                    int p1;
+                    int p2;
+                    int final;
+                    scanf("%d %d %d", &p1,&p2,&final);
+                    int promedio = (p1 + p2 + final) / 3;
+                    rendirMateria(materia,estudiante,promedio);
+                    break;
+                }
+                case 9:
+                {
+                    printf("Regresando \n");
                     break;
                 }
                 default:
