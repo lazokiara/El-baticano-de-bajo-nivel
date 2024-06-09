@@ -100,11 +100,11 @@ void insertarOrdenadamente(ListaDeEstudiantes *list, Estudiante *entrada)
             NodoEstudiante *aux = ingreso->next->next;
             ingreso->next->next = ingreso;
             ingreso->next = aux;
+            list->size++;
             return;
         }
         ingreso->next = ingreso->next->next;
     }
-    list->size++;
 }
 
 void eliminarEstudiante(ListaDeEstudiantes *list, Estudiante *estudiante)
@@ -144,19 +144,21 @@ void eliminarEstudiante(ListaDeEstudiantes *list, Estudiante *estudiante)
     }
     list->size--;
 }
-void eliminarListaDeEstudiantes(ListaDeEstudiantes *lista) {
+void eliminarListaDeEstudiantes(ListaDeEstudiantes *lista)
+{
     NodoEstudiante *actual = lista->head;
     NodoEstudiante *siguiente;
 
-    while (actual != NULL) {
-        siguiente = actual->next; 
+    while (actual != NULL)
+    {
+        siguiente = actual->next;
         free(actual);
-        actual = siguiente; 
+        actual = siguiente;
     }
 
-    lista->head = NULL; 
-    lista->tail = NULL; 
-    lista->size = 0; 
+    lista->head = NULL;
+    lista->tail = NULL;
+    lista->size = 0;
 }
 
 // Sin Usar
@@ -165,26 +167,30 @@ void eliminarListaDeEstudiantes(ListaDeEstudiantes *lista) {
 /// @return Devuelve el primer estudiante que se encuentra en la lista a partir de una edad
 Estudiante *getEstudiantePorLegajo(ListaDeEstudiantes *list, int legajo)
 {
-    NodoEstudiante *cursor = list->head;
-    while (cursor != NULL)
+    if (list != NULL)
     {
-        if (getLegajo(GetEstudiante(cursor)) == legajo)
+        NodoEstudiante *cursor = list->head;
+        while (cursor != NULL)
         {
-            return GetEstudiante(cursor);
+            if (getLegajo(GetEstudiante(cursor)) == legajo)
+            {
+                return GetEstudiante(cursor);
+            }
+            cursor = cursor->next;
         }
-        cursor = cursor->next;
     }
     return NULL;
 }
 
-void modificarNombreDeEstudiante(ListaDeEstudiantes *list, int legajo, char *nom, char *ape) {
-    Estudiante *aux = getEstudiantePorLegajo(list, legajo);
-    free(aux->nombre); 
-    free(aux->apellido);
-    aux->nombre = (char *)malloc((strlen(nom) + 1) * sizeof(char));
-    aux->apellido = (char *)malloc((strlen(ape) + 1) * sizeof(char));
-    strcpy(aux->nombre, nom);
-    strcpy(aux->apellido, ape);
+void modificarNombreDeEstudiante(Estudiante *estud, char *nom, char *ape)
+{
+    // Estudiante *aux = getEstudiantePorLegajo(list, legajo);
+    free(estud->nombre);
+    free(estud->apellido);
+    estud->nombre = (char *)malloc((strlen(nom) + 1) * sizeof(char));
+    estud->apellido = (char *)malloc((strlen(ape) + 1) * sizeof(char));
+    strcpy(estud->nombre, nom);
+    strcpy(estud->apellido, ape);
 }
 /// @brief Imprime todos los estudiantes que tengan la edad ingresada
 /// @param list
@@ -206,6 +212,24 @@ void imprimirEstudiantesPorRangoDeEdad(ListaDeEstudiantes *list, int edadMin, in
     }
 }
 
+void imprimirListaDeEstudiantes(ListaDeEstudiantes *list)
+{
+    if (list == NULL || list->head == NULL)
+    {
+        printf("No se encontraron estudiantes.\n");
+    }
+    else
+    {
+        NodoEstudiante *cursor = list->head;
+        while (cursor != NULL)
+        {
+            Estudiante *estudiante = GetEstudiante(cursor);
+            imprimirEstudiante(estudiante);
+            cursor = cursor->next;
+        }
+    }
+    printf("\n");
+}
 // --------------------------------------------------- Lista Materias --------------------------------------------------- //
 
 typedef struct structListaDeMaterias
@@ -286,19 +310,21 @@ void eliminarMateria(ListaDeMaterias *list, Materia *matteria)
     }
     list->size--;
 }
-void eliminarListaDeMaterias(ListaDeMaterias *lista) {
+void eliminarListaDeMaterias(ListaDeMaterias *lista)
+{
     NodoMateria *actual = lista->head;
     NodoMateria *siguiente;
 
-    while (actual != NULL) {
-        siguiente = actual->next; 
+    while (actual != NULL)
+    {
+        siguiente = actual->next;
         free(actual);
-        actual = siguiente; 
+        actual = siguiente;
     }
 
-    lista->head = NULL; 
-    lista->tail = NULL; 
-    lista->size = 0; 
+    lista->head = NULL;
+    lista->tail = NULL;
+    lista->size = 0;
 }
 Materia *getMateriaPorNombre(ListaDeMaterias *list, char *nombre)
 {
@@ -313,45 +339,65 @@ Materia *getMateriaPorNombre(ListaDeMaterias *list, char *nombre)
     }
     return NULL;
 }
-void modificarNombreMateria(Materia *materia, char *nom) {
-    free(materia->nombre); 
+void modificarNombreMateria(Materia *materia, char *nom)
+{
+    free(materia->nombre);
     materia->nombre = (char *)malloc((strlen(nom) + 1) * sizeof(char));
     strcpy(materia->nombre, nom);
 }
 
 void enlistarAlumnoEnMateria(Materia *materia, Estudiante *estudiante)
 {
-    ListaDeEstudiantes *list_mat = NewListaDeEstudiante();
-    materia->alumnos = list_mat;
-    inserFinal(list_mat, estudiante);
+    if (materia->alumnos == NULL)
+    {
+        materia->alumnos = NewListaDeEstudiante();
+    }
+
+    // materia->alumnos = list_mat;
+    inserFinal(materia->alumnos, estudiante);
     materia->catn_alumnos++;
 }
 
-void eliminarAlumoDeMateria(Materia *mat, Estudiante *estudiante){
+void eliminarAlumoDeMateria(Materia *mat, Estudiante *estudiante)
+{
     ListaDeEstudiantes *list_mat = NewListaDeEstudiante();
-    list_mat=mat->alumnos ;
+    list_mat = mat->alumnos;
     eliminarEstudiante(list_mat, estudiante);
     mat->catn_alumnos--;
 }
-void rendirMateria(Materia *mat, Estudiante *alumno, float promedio){
-    ListaDeEstudiantes *list_mat_a = NewListaDeEstudiante();
-    mat->alumnos_aprobados = list_mat_a;
-    ListaDeEstudiantes *list_mat_d = NewListaDeEstudiante();
-    mat->alumnos_desaprobados =  list_mat_d  ;
-    if(promedio >= 4){
-        inserFinal(list_mat_a, alumno);
+void rendirMateria(Materia *mat, Estudiante *alumno, float promedio)
+{
+    if (promedio >= 4)
+    {
+        if (mat->alumnos_aprobados == NULL)
+        {
+            mat->alumnos_aprobados = NewListaDeEstudiante();
+        }
+        insertarOrdenadamente(mat->alumnos_aprobados, alumno);
         mat->catn_alumnos_aprobados++;
         printf("Alumno aprobo con un promedio de: %f \n", promedio);
-        return;
     }
-    inserFinal(list_mat_d, alumno);
-    mat->catn_alumnos_desaprobados++;
-     printf("Alumno desaprobo con un promedio de: %f \n", promedio);
-
+    else
+    {
+        if (mat->alumnos_desaprobados == NULL)
+        {
+            mat->alumnos_desaprobados = NewListaDeEstudiante();
+        }
+        insertarOrdenadamente(mat->alumnos_desaprobados, alumno);
+        mat->catn_alumnos_desaprobados++;
+        printf("Alumno desaprobo con un promedio de: %f \n", promedio);
+    }
 }
-/*
-void alumnosAprobados(Materia *mat){
-   
-    
-    imprimirEstudiante()
-}*/
+
+// void imprimirAlumnosDeLaMateria(Materia *mat)
+// {
+//     printf("Materia: %s\n", getNombreMateria(mat));
+//     printf("-----Alumnos de la Materia:\n");
+//     imprimirListaDeEstudiantes(mat->alumnos);
+//     printf("-----Alumnos aprobados de la Materia:\n");
+//     imprimirListaDeEstudiantes(mat->alumnos_aprobados);
+//     printf("-----Alumnos desaprobados de la Materia:\n");
+//     imprimirListaDeEstudiantes(mat->alumnos_desaprobados);
+
+//     printf("Porcentaje de aprobados: %d por ciento", ((mat->catn_alumnos_aprobados * 100) / mat->catn_alumnos));
+// }

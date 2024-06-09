@@ -4,7 +4,6 @@
 #include <unistd.h>
 #include "structs/ListaStructs/Lista.h"
 
-
 void loadingBar()
 {
     int i;
@@ -15,7 +14,7 @@ void loadingBar()
     {
         printf("%c", 177);
         fflush(stdout);
-        usleep(100000); 
+        usleep(100000);
     }
     printf("\r");
     printf("\t\t\t\t\t");
@@ -23,7 +22,7 @@ void loadingBar()
     {
         printf("%c", 219);
         fflush(stdout);
-        usleep(100000); 
+        usleep(100000);
     }
     printf("\n\n");
 }
@@ -82,22 +81,7 @@ int main()
                 {
                     printf("Listar Estudiantes\n------------------------- \n \n");
 
-                    if (lista_de_estudiante->size < 1 || lista_de_estudiante->head == NULL)
-                    {
-                        printf("El sistema no tiene estudiantes.\n");
-                        printf("\n");
-                    }
-                    else
-                    {
-                        NodoEstudiante *cursor = lista_de_estudiante->head;
-                        while (cursor != NULL)
-                        {
-                            Estudiante *estudiante = GetEstudiante(cursor);
-                            imprimirEstudiante(estudiante);
-                            cursor = cursor->next;
-                        }
-                        printf("\n");
-                    }
+                    imprimirListaDeEstudiantes(lista_de_estudiante);
                     break;
                 }
                 case 3:
@@ -155,24 +139,24 @@ int main()
                 }
                 case 5:
                 {
-                    
+
                     printf("¿Desea eliminar la lista de alumnos?\n 1: Si. \n 2:No. \n ");
                     int confi = 0;
                     scanf("%d", &confi);
                     if (confi == 1)
-                        {
-                            loadingBar();
-                            eliminarListaDeEstudiantes(lista_de_estudiante);
-                            printf("Lista eliminada\n ------------------------- \n \n");
-                        }
-                        else if (confi == 2)
-                        {
-                            printf("Cancelando... \n");
-                        }
-                        else
-                        {
-                            printf("Intente nuevamente. \n");
-                        }
+                    {
+                        loadingBar();
+                        eliminarListaDeEstudiantes(lista_de_estudiante);
+                        printf("Lista eliminada\n ------------------------- \n \n");
+                    }
+                    else if (confi == 2)
+                    {
+                        printf("Cancelando... \n");
+                    }
+                    else
+                    {
+                        printf("Intente nuevamente. \n");
+                    }
                     break;
                 }
                 case 6:
@@ -180,20 +164,21 @@ int main()
                     printf("Ingrese el legajo del alumno que desea renombrar: \n");
                     int legajo_buscado;
                     scanf("%d", &legajo_buscado);
-                    Estudiante *estudiante_buscado = getEstudiantePorLegajo(lista_de_estudiante,legajo_buscado);
-                    if(estudiante_buscado == NULL){
+                    Estudiante *estudiante_buscado = getEstudiantePorLegajo(lista_de_estudiante, legajo_buscado);
+                    if (estudiante_buscado == NULL)
+                    {
                         printf("El legajo ingresado no pertenece a ningun estudiante del sistema. \n");
                         break;
                     }
                     printf("Ingrese el nuevo nombre y apellido del estudiante: \n");
                     char new_nombre[50];
                     char new_apellido[50];
-                    scanf("%s %s", new_nombre,new_apellido);
-                    modificarNombreDeEstudiante(lista_de_estudiante, legajo_buscado,new_nombre, new_apellido);
+                    scanf("%s %s", new_nombre, new_apellido);
+                    modificarNombreDeEstudiante(estudiante_buscado, new_nombre, new_apellido);
                     printf("Estudiante %s %s renombrado correctamente. \n", estudiante_buscado->nombre, estudiante_buscado->apellido);
                     break;
                 }
-                 case 7:
+                case 7:
                 {
                     printf("Regresando...\n ------------------------- \n \n");
                     break;
@@ -213,7 +198,7 @@ int main()
             int opcion_materia = 0;
             while (opcion_materia != 10)
             {
-                printf("Ingrese la opcion del menu: \n 1: Ingresar Materia. \n 2: Listar Materias. \n 3: Eliminar Materia. \n 4: Eliminar lista de materias. \n 5: Cambiar nombre de materia. \n 6: Enlistar alumno en materia. \n 7: Dar de baja de la materia a un alumno. \n 8: Promediar alumno por materia \n 9: Promedio de alumnos aprobados y desaprobados \n 10: Cerrar menu. \n");
+                printf("Ingrese la opcion del menu: \n 1: Ingresar Materia. \n 2: Listar Materias. \n 3: Eliminar Materia. \n 4: Eliminar lista de materias. \n 5: Cambiar nombre de materia. \n 6: Enlistar alumno en materia. \n 7: Dar de baja de la materia a un alumno. \n 8: Promediar alumno por materia \n 9: Imprimir alumnos de Materia. \n 10: Cerrar menu. \n");
                 scanf("%d", &opcion_materia);
                 switch (opcion_materia)
                 {
@@ -289,25 +274,25 @@ int main()
                 }
                 case 4:
                 {
-                     
+
                     printf("¿Desea eliminar la lista de materias?\n 1: Si. \n 2:No. \n ");
                     int confi = 0;
                     scanf("%d", &confi);
                     if (confi == 1)
-                        {
-                            loadingBar();
-                            eliminarListaDeMaterias(lista_de_materias);
-                            printf("Lista eliminada\n ------------------------- \n \n");
-                        }
-                        else if (confi == 2)
-                        {
-                            printf("Cancelando... \n");
-                        }
-                        else
-                        {
-                            printf("Intente nuevamente. \n");
-                        }
-                     break;
+                    {
+                        loadingBar();
+                        eliminarListaDeMaterias(lista_de_materias);
+                        printf("Lista eliminada\n ------------------------- \n \n");
+                    }
+                    else if (confi == 2)
+                    {
+                        printf("Cancelando... \n");
+                    }
+                    else
+                    {
+                        printf("Intente nuevamente. \n");
+                    }
+                    break;
                 }
                 case 5:
                 {
@@ -316,7 +301,8 @@ int main()
                     char nombre_buscado[50];
                     scanf("%s", nombre_buscado);
                     Materia *materia_buscada = getMateriaPorNombre(lista_de_materias, nombre_buscado);
-                    if(materia_buscada == NULL){
+                    if (materia_buscada == NULL)
+                    {
                         printf("El nombre ingresado no pertenece a ninguna materia del sistema. \n");
                         break;
                     }
@@ -328,7 +314,8 @@ int main()
                     break;
                 }
                 case 6:
-                {   char nombre[20];
+                {
+                    char nombre[20];
                     printf("Ingrese la materia en la que desea ingresar el alumno: \n ");
                     scanf("%s", nombre);
                     Materia *materia = getMateriaPorNombre(lista_de_materias, nombre);
@@ -377,31 +364,31 @@ int main()
                     int confi = 0;
                     scanf("%d", &confi);
                     if (confi == 1)
-                        {
-                            loadingBar();
-                            eliminarAlumoDeMateria(materia, estudiante);
-                            printf("Alumno eliminado\n ------------------------- \n \n");
-                        }
-                        else if (confi == 2)
-                        {
-                            printf("Cancelando... \n");
-                        }
-                        else
-                        {
-                            printf("Intente nuevamente. \n");
-                        }
-                    
-                     break;
+                    {
+                        loadingBar();
+                        eliminarAlumoDeMateria(materia, estudiante);
+                        printf("Alumno eliminado\n ------------------------- \n \n");
+                    }
+                    else if (confi == 2)
+                    {
+                        printf("Cancelando... \n");
+                    }
+                    else
+                    {
+                        printf("Intente nuevamente. \n");
+                    }
+
+                    break;
                 }
                 case 8:
                 {
                     printf("Ingrese la materia: \n");
                     char mat[50];
                     scanf("%s", mat);
-                    Materia *materia = getMateriaPorNombre(lista_de_materias,mat);
-                    if (mat == NULL)
+                    Materia *materia = getMateriaPorNombre(lista_de_materias, mat);
+                    if (materia == NULL)
                     {
-                        printf("Materia no existe");
+                        printf("La materia no existe.\n");
                         break;
                     }
                     printf("Ingrese el legajo del alumno que rinde: \n");
@@ -418,31 +405,76 @@ int main()
                     printf("Ingrese la nota del primer parcial: \n");
                     int p1;
                     scanf("%d", &p1);
-                    if(p1 < 0 || p1 > 10){
+                    if (p1 < 0 || p1 > 10)
+                    {
                         printf("Nota invalida. \n");
                         break;
                     }
                     printf("Ingrese la nota del segundo parcial: \n");
                     int p2;
                     scanf("%d", &p2);
-                    if(p2 < 0 || p2 > 10){
+                    if (p2 < 0 || p2 > 10)
+                    {
                         printf("Nota invalida. \n");
                         break;
                     }
                     printf("Ingrese la nota del final: \n");
                     int final;
                     scanf("%d", &final);
-                    if(final < 0 || final > 10){
+                    if (final < 0 || final > 10)
+                    {
                         printf("Nota invalida. \n");
                         break;
                     }
                     float promedio = (p1 + p2 + final) / 3;
-                    rendirMateria(materia,estudiante,promedio);
+                    rendirMateria(materia, estudiante, promedio);
                     break;
                 }
                 case 9:
                 {
-                    printf("Regresando \n");
+                    char mate_busc[20];
+                    printf("\nIngrese el nombre de la materia por imprimir: \n");
+                    scanf("%s", mate_busc);
+
+                    Materia *mate_imprim = getMateriaPorNombre(lista_de_materias, mate_busc);
+                    if (mate_imprim == NULL)
+                    {
+                        printf("Materia inexistente.\n");
+                        break;
+                    }
+                    printf("Imprimir lista de alumnos de la materia: \n 1: Todos los alumnos.\n 2: Alumnos aprobados.\n 3: Alumnos desaprobados.\n");
+                    int opcion_menu_imprimir = 0;
+                    scanf("%d", &opcion_menu_imprimir);
+                    switch (opcion_menu_imprimir)
+                    {
+                    case 1:
+                    {
+                        ListaDeEstudiantes *lista_aux = NewListaDeEstudiante();
+                        lista_aux = mate_imprim->alumnos;
+                        imprimirListaDeEstudiantes(lista_aux);
+                        break;
+                    }
+                    case 2:
+                    {
+                        ListaDeEstudiantes *lista_aux = NewListaDeEstudiante();
+                        lista_aux = mate_imprim->alumnos_aprobados;
+                        imprimirListaDeEstudiantes(lista_aux);
+                        break;
+                    }
+                    case 3:
+                    {
+                        ListaDeEstudiantes *lista_aux = NewListaDeEstudiante();
+                        lista_aux = mate_imprim->alumnos_desaprobados;
+                        imprimirListaDeEstudiantes(lista_aux);
+                        break;
+                    }
+                    default:
+                    {
+                        printf("Opcion invalida, regresando...\n");
+                        break;
+                    }
+                    }
+
                     break;
                 }
                 case 10:

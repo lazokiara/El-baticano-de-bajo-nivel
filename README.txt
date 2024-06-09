@@ -3,10 +3,7 @@ Consigna del TP final:
 Desarrollar un sistema de estudiantes en C. Debe permitir:
 
 PRINCIPAL:
--Modificar estudiante
--Eliminar estudiante (por nombre o dni)
 
--Eliminar, modificar materia
 -Anotarse a materia
 -Rendir materia
 
