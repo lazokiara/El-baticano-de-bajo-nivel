@@ -333,7 +333,7 @@ void eliminarAlumoDeMateria(Materia *mat, Estudiante *estudiante){
     eliminarEstudiante(list_mat, estudiante);
     mat->catn_alumnos--;
 }
-void rendirMateria(Materia *mat, Estudiante *alumno, int promedio){
+void rendirMateria(Materia *mat, Estudiante *alumno, float promedio){
     ListaDeEstudiantes *list_mat_a = NewListaDeEstudiante();
     mat->alumnos_aprobados = list_mat_a;
     ListaDeEstudiantes *list_mat_d = NewListaDeEstudiante();
@@ -341,11 +341,17 @@ void rendirMateria(Materia *mat, Estudiante *alumno, int promedio){
     if(promedio >= 4){
         inserFinal(list_mat_a, alumno);
         mat->catn_alumnos_aprobados++;
-        printf("Alumno aprobo con un promedio de: %d \n", promedio);
+        printf("Alumno aprobo con un promedio de: %f \n", promedio);
         return;
     }
     inserFinal(list_mat_d, alumno);
     mat->catn_alumnos_desaprobados++;
-     printf("Alumno desaprobo con un promedio de: %d \n", promedio);
+     printf("Alumno desaprobo con un promedio de: %f \n", promedio);
 
 }
+/*
+void alumnosAprobados(Materia *mat){
+   
+    
+    imprimirEstudiante()
+}*/

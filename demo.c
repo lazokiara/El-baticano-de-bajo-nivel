@@ -211,9 +211,9 @@ int main()
         case 2:
         {
             int opcion_materia = 0;
-            while (opcion_materia != 9)
+            while (opcion_materia != 10)
             {
-                printf("Ingrese la opcion del menu: \n 1: Ingresar Materia. \n 2: Listar Materias. \n 3: Eliminar Materia. \n 4: Eliminar lista de materias. \n 5: Cambiar nombre de materia. \n 6: Enlistar alumno en materia. \n 7: Dar de baja de la materia a un alumno. \n 8: Promediar alumno por materia \n 9: Cerrar menu \n");
+                printf("Ingrese la opcion del menu: \n 1: Ingresar Materia. \n 2: Listar Materias. \n 3: Eliminar Materia. \n 4: Eliminar lista de materias. \n 5: Cambiar nombre de materia. \n 6: Enlistar alumno en materia. \n 7: Dar de baja de la materia a un alumno. \n 8: Promediar alumno por materia \n 9: Promedio de alumnos aprobados y desaprobados \n 10: Cerrar menu. \n");
                 scanf("%d", &opcion_materia);
                 switch (opcion_materia)
                 {
@@ -399,22 +399,53 @@ int main()
                     char mat[50];
                     scanf("%s", mat);
                     Materia *materia = getMateriaPorNombre(lista_de_materias,mat);
+                    if (mat == NULL)
+                    {
+                        printf("Materia no existe");
+                        break;
+                    }
                     printf("Ingrese el legajo del alumno que rinde: \n");
                     int leg;
                     scanf("%d", &leg);
                     ListaDeEstudiantes *lista_aux = NewListaDeEstudiante();
                     lista_aux = materia->alumnos;
-                    Estudiante *estudiante = getEstudiantePorLegajo(lista_aux,leg);
-                    printf("Ingrese las notas a promediar:");
+                    Estudiante *estudiante = getEstudiantePorLegajo(lista_aux, leg);
+                    if (estudiante == NULL)
+                    {
+                        printf("Estudiante no registrado. \n");
+                        break;
+                    }
+                    printf("Ingrese la nota del primer parcial: \n");
                     int p1;
+                    scanf("%d", &p1);
+                    if(p1 < 0 || p1 > 10){
+                        printf("Nota invalida. \n");
+                        break;
+                    }
+                    printf("Ingrese la nota del segundo parcial: \n");
                     int p2;
+                    scanf("%d", &p2);
+                    if(p2 < 0 || p2 > 10){
+                        printf("Nota invalida. \n");
+                        break;
+                    }
+                    printf("Ingrese la nota del final: \n");
                     int final;
-                    scanf("%d %d %d", &p1,&p2,&final);
-                    int promedio = (p1 + p2 + final) / 3;
+                    scanf("%d", &final);
+                    if(final < 0 || final > 10){
+                        printf("Nota invalida. \n");
+                        break;
+                    }
+                    float promedio = (p1 + p2 + final) / 3;
                     rendirMateria(materia,estudiante,promedio);
                     break;
                 }
                 case 9:
+                {
+                    printf("Regresando \n");
+                    break;
+                }
+                case 10:
                 {
                     printf("Regresando \n");
                     break;
