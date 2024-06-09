@@ -41,9 +41,9 @@ int main()
         case 1:
         {
             int opcion_alumnos = 0;
-            while (opcion_alumnos != 5)
+            while (opcion_alumnos != 6)
             {
-                printf("Ingrese la opcion del menu: \n 1: Ingresar Alumno. \n 2: Listar Alumnos. \n 3: Buscar alumno. \n 4: Eliminar alumno: \n 5: Volver al menu principal \n");
+                printf("Ingrese la opcion del menu: \n 1: Ingresar Alumno. \n 2: Listar Alumnos. \n 3: Buscar alumno. \n 4: Eliminar alumno: \n 5: Eliminar lista de alumnos. \n 6: Volver al menu principal \n");
                 scanf("%d", &opcion_alumnos);
 
                 switch (opcion_alumnos)
@@ -131,7 +131,7 @@ int main()
                     {
                         printf("Estudiante a eliminar: ");
                         imprimirEstudiante(alumno);
-                        printf("\n 1: Confirmar eliminarcion. \n 2: Cancelar. \n");
+                        printf("\n 1: Confirmar eliminacion. \n 2: Cancelar. \n");
                         int confirmacion;
                         scanf("%d", &confirmacion);
                         if (confirmacion == 1)
@@ -153,6 +153,28 @@ int main()
                 }
                 case 5:
                 {
+                    
+                    printf("¿Desea eliminar la lista de alumnos?\n 1: Si. \n 2:No. \n ");
+                    int confi = 0;
+                    scanf("%d", &confi);
+                    if (confi == 1)
+                        {
+                            loadingBar();
+                            eliminarListaDeEstudiantes(lista_de_estudiante);
+                            printf("Lista eliminada\n ------------------------- \n \n");
+                        }
+                        else if (confi == 2)
+                        {
+                            printf("Cancelando... \n");
+                        }
+                        else
+                        {
+                            printf("Intente nuevamente. \n");
+                        }
+                    break;
+                }
+                 case 6:
+                {
                     printf("Regresando...\n ------------------------- \n \n");
                     printf("\n");
                     break;
@@ -172,7 +194,7 @@ int main()
             int opcion_materia = 0;
             while (opcion_materia != 6)
             {
-                printf("Ingrese la opcion del menu: \n 1: Ingresar Materia. \n 2: Listar Materias. \n 3: Eliminar Materia. \n 4: Anotar alumnos. \n 5: Obtener alumnos cursantes. \n 6: Cerrar menu \n");
+                printf("Ingrese la opcion del menu: \n 1: Ingresar Materia. \n 2: Listar Materias. \n 3: Eliminar Materia. \n 4: Eliminar lista de materias. \n 5: Obtener alumnos cursantes. \n 6: Cerrar menu \n");
                 scanf("%d", &opcion_materia);
                 switch (opcion_materia)
                 {
@@ -227,7 +249,7 @@ int main()
                     {
                         printf("Materia a eliminar: ");
                         imprimirMateria(materia);
-                        printf("\n 1: Confirmar eliminarcion. \n 2: Cancelar. \n");
+                        printf("\n 1: Confirmar eliminacion. \n 2: Cancelar. \n");
                         int confirmacion;
                         scanf("%d", &confirmacion);
                         if (confirmacion == 1)
@@ -248,35 +270,25 @@ int main()
                 }
                 case 4:
                 {
-                    char nombre[20];
-                    printf("Ingrese la materia en la que desea ingresar el alumno: \n ");
-                    scanf("%s", nombre);
-                    Materia *materia = getMateriaPorNombre(lista_de_materias, nombre);
-                    if (materia == NULL)
-                    {
-                        printf("Materia no existe");
-                        break;
-                    }
-                    int legajo;
-                    printf("Ingrese el legajo del alumno a enlistar: \n");
-                    scanf("%d", &legajo);
-                    Estudiante *estudiante = getEstudiantePorLegajo(lista_de_estudiante, legajo);
-                    if (estudiante == NULL)
-                    {
-                        printf("Estudiante no registrado en el sistema \n");
-                        break;
-                    }
-                    Estudiante *yaExiste = getEstudiantePorLegajo(materia->alumnos, legajo);
-                    if (yaExiste != NULL)
-                    {
-                        printf("El alumno ya esta cursando la materia. \n");
-                        break;
-                    }
-
-                    enlistarAlumnoEnMateria(materia, estudiante);
-                    printf("Alumno enlistado correctamente. \n Cantidad de alumnos en %s: %d \n", materia->nombre, materia->alumnos->size);
-
-                    break;
+                     
+                    printf("¿Desea eliminar la lista de materias?\n 1: Si. \n 2:No. \n ");
+                    int confi = 0;
+                    scanf("%d", &confi);
+                    if (confi == 1)
+                        {
+                            loadingBar();
+                            eliminarListaDeMaterias(lista_de_materias);
+                            printf("Lista eliminada\n ------------------------- \n \n");
+                        }
+                        else if (confi == 2)
+                        {
+                            printf("Cancelando... \n");
+                        }
+                        else
+                        {
+                            printf("Intente nuevamente. \n");
+                        }
+                     break;
                 }
                 case 5:
                 {

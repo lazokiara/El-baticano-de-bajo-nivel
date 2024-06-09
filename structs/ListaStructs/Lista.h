@@ -144,6 +144,20 @@ void eliminarEstudiante(ListaDeEstudiantes *list, Estudiante *estudiante)
     }
     list->size--;
 }
+void eliminarListaDeEstudiantes(ListaDeEstudiantes *lista) {
+    NodoEstudiante *actual = lista->head;
+    NodoEstudiante *siguiente;
+
+    while (actual != NULL) {
+        siguiente = actual->next; 
+        free(actual);
+        actual = siguiente; 
+    }
+
+    lista->head = NULL; 
+    lista->tail = NULL; 
+    lista->size = 0; 
+}
 
 // Sin Usar
 /// @param list
@@ -262,6 +276,20 @@ void eliminarMateria(ListaDeMaterias *list, Materia *matteria)
         free(actual);
     }
     list->size--;
+}
+void eliminarListaDeMaterias(ListaDeMaterias *lista) {
+    NodoMateria *actual = lista->head;
+    NodoMateria *siguiente;
+
+    while (actual != NULL) {
+        siguiente = actual->next; 
+        free(actual);
+        actual = siguiente; 
+    }
+
+    lista->head = NULL; 
+    lista->tail = NULL; 
+    lista->size = 0; 
 }
 Materia *getMateriaPorNombre(ListaDeMaterias *list, char *nombre)
 {

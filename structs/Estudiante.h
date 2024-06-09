@@ -8,7 +8,6 @@ typedef struct structEstudiante
     char *apellido;
     int edad;
     int legajo;
-
 } Estudiante;
 
 Estudiante *NewEstudiante(char *nom, char *ap, int ed, int legajo);
