@@ -35,20 +35,30 @@ int main()
 
     while (opcion_principal != 3)
     {
-        printf("Ingrese la opcion del menu \n 1: Acceder a lista de alumnos. \n 2: Acceder a lista de materias. \n 3: Cerrar menu. \n");
+        printf("Ingrese la opcion del menu \n \n 1: Acceder a lista de alumnos. \n 2: Acceder a lista de materias. \n 3: Cerrar menu. \n");
         scanf("%d", &opcion_principal);
         switch (opcion_principal)
         {
+
         case 1:
         {
             int opcion_alumnos = 0;
             while (opcion_alumnos != 7)
             {
-                printf("Ingrese la opcion del menu: \n 1: Ingresar Alumno. \n 2: Listar Alumnos. \n 3: Buscar alumnos por rango de edad. \n 4: Eliminar alumno: \n 5: Eliminar lista de alumnos. \n 6: Renombrar alumno. \n 7: Volver al menu principal \n");
+                printf("Ingrese la opcion del menu: \n 0: Ingresar alumnos aleatorios. \n 1: Ingresar Alumno. \n 2: Listar Alumnos. \n 3: Buscar alumnos por rango de edad. \n 4: Eliminar alumno: \n 5: Eliminar lista de alumnos. \n 6: Renombrar alumno. \n 7: Volver al menu principal \n");
                 scanf("%d", &opcion_alumnos);
 
                 switch (opcion_alumnos)
                 {
+                case 0:
+                {
+                    for (int i = 0; i < 10; i++)
+                    {
+                        Estudiante *random_est = NewEstudiante(generarNombreAleatorio(), generarApellidoAleatorio(), generarEdadAleatoria(), generarLegajoAleatorio());
+                        insertarOrdenadamente(lista_de_estudiante, random_est);
+                    }
+                    break;
+                }
                 case 1:
                 {
                     printf("Agregar alumno\n ------------------------- \n");
