@@ -177,6 +177,15 @@ Estudiante *getEstudiantePorLegajo(ListaDeEstudiantes *list, int legajo)
     return NULL;
 }
 
+void modificarNombreDeEstudiante(ListaDeEstudiantes *list, int legajo, char *nom, char *ape) {
+    Estudiante *aux = getEstudiantePorLegajo(list, legajo);
+    free(aux->nombre); 
+    free(aux->apellido);
+    aux->nombre = (char *)malloc((strlen(nom) + 1) * sizeof(char));
+    aux->apellido = (char *)malloc((strlen(ape) + 1) * sizeof(char));
+    strcpy(aux->nombre, nom);
+    strcpy(aux->apellido, ape);
+}
 /// @brief Imprime todos los estudiantes que tengan la edad ingresada
 /// @param list
 /// @param edad
@@ -304,6 +313,11 @@ Materia *getMateriaPorNombre(ListaDeMaterias *list, char *nombre)
     }
     return NULL;
 }
+void modificarNombreMateria(Materia *materia, char *nom) {
+    free(materia->nombre); 
+    materia->nombre = (char *)malloc((strlen(nom) + 1) * sizeof(char));
+    strcpy(materia->nombre, nom);
+}
 void enlistarAlumnoEnMateria(Materia *materia, Estudiante *estudiante)
 {
     //NodoEstudiante *actual = materia->alumnos->head;
@@ -317,5 +331,5 @@ void enlistarAlumnoEnMateria(Materia *materia, Estudiante *estudiante)
     //     //anterior = actual;
     //     actual = actual->next;
     // }
-    inserFinal(materia->alumnos, estudiante);
+    //inserFinal(materia->alumnos, estudiante);
 }

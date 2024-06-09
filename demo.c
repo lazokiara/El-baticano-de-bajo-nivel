@@ -4,10 +4,11 @@
 #include <unistd.h>
 #include "structs/ListaStructs/Lista.h"
 
+
 void loadingBar()
 {
     int i;
-    printf("\n\n\n\n");
+    printf("\n");
     printf("\n\n\n\n\t\t\t\t\tLoading...\n\n");
     printf("\t\t\t\t\t");
     for (i = 0; i < 26; i++)
@@ -24,6 +25,7 @@ void loadingBar()
         fflush(stdout);
         usleep(100000); // 100ms delay
     }
+    printf("\n\n");
 }
 
 int main()
@@ -41,9 +43,9 @@ int main()
         case 1:
         {
             int opcion_alumnos = 0;
-            while (opcion_alumnos != 6)
+            while (opcion_alumnos != 7)
             {
-                printf("Ingrese la opcion del menu: \n 1: Ingresar Alumno. \n 2: Listar Alumnos. \n 3: Buscar alumno. \n 4: Eliminar alumno: \n 5: Eliminar lista de alumnos. \n 6: Volver al menu principal \n");
+                printf("Ingrese la opcion del menu: \n 1: Ingresar Alumno. \n 2: Listar Alumnos. \n 3: Buscar alumno. \n 4: Eliminar alumno: \n 5: Eliminar lista de alumnos. \n 6: Renombrar alumno. \n 7: Volver al menu principal \n");
                 scanf("%d", &opcion_alumnos);
 
                 switch (opcion_alumnos)
@@ -173,10 +175,28 @@ int main()
                         }
                     break;
                 }
-                 case 6:
+                case 6:
+                {
+                    printf("Ingrese el legajo del alumno que desea renombrar: \n");
+                    int legajo_buscado;
+                    scanf("%d", &legajo_buscado);
+                    Estudiante *estudiante_buscado = getEstudiantePorLegajo(lista_de_estudiante,legajo_buscado);
+                    if(estudiante_buscado == NULL){
+                        printf("El legajo ingresado no pertenece a ningun estudiante del sistema. \n");
+                        break;
+                    }
+                    printf("Ingrese el nuevo nombre y apellido del estudiante: \n");
+                    char *new_nombre[50];
+                    char *new_apellido[50];
+                    scanf("%s %s", new_nombre,new_apellido);
+                    modificarNombreDeEstudiante(lista_de_estudiante, legajo_buscado,new_nombre, new_apellido);
+                    printf("Estudiante %s %s renombrado correctamente. \n", estudiante_buscado->nombre, estudiante_buscado->apellido);
+                    break;
+                }
+                 case 7:
                 {
                     printf("Regresando...\n ------------------------- \n \n");
-                    printf("\n");
+                    loadingBar();
                     break;
                 }
                 default:
@@ -194,7 +214,7 @@ int main()
             int opcion_materia = 0;
             while (opcion_materia != 6)
             {
-                printf("Ingrese la opcion del menu: \n 1: Ingresar Materia. \n 2: Listar Materias. \n 3: Eliminar Materia. \n 4: Eliminar lista de materias. \n 5: Obtener alumnos cursantes. \n 6: Cerrar menu \n");
+                printf("Ingrese la opcion del menu: \n 1: Ingresar Materia. \n 2: Listar Materias. \n 3: Eliminar Materia. \n 4: Eliminar lista de materias. \n 5: Cambiar nombre de materia. \n 6: Cerrar menu \n");
                 scanf("%d", &opcion_materia);
                 switch (opcion_materia)
                 {
@@ -292,12 +312,26 @@ int main()
                 }
                 case 5:
                 {
-                    printf("Regresando al menu.");
+
+                    printf("Ingrese la materia que desea renombrar: \n");
+                    char *nombre_buscado[50];
+                    scanf("%s", nombre_buscado);
+                    Materia *materia_buscada = getMateriaPorNombre(lista_de_materias, nombre_buscado);
+                    if(materia_buscada == NULL){
+                        printf("El nombre ingresado no pertenece a ninguna materia del sistema. \n");
+                        break;
+                    }
+                    printf("Ingrese el nuevo nombre de la materia: \n");
+                    char *new_nombre[50];
+                    scanf("%s", new_nombre);
+                    modificarNombreMateria(materia_buscada, new_nombre);
+                    printf("Materia %s renombrada correctamente. \n", materia_buscada->nombre);
                     break;
                 }
                 case 6:
                 {
-                    printf("Regresando al menu...");
+                    printf("Regresando al menu... \n");
+                    loadingBar();
                     break;
                 }
 
@@ -315,7 +349,6 @@ int main()
         {
             printf("Cerrando menu\n ------------------------- \n \n");
             loadingBar();
-            printf("\n");
             break;
         }
         default:

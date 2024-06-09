@@ -3,7 +3,8 @@
 
 typedef struct structMateria{
     char *nombre;
-    struct structListaDeEstudiantes *alumnos;
+    struct structListaDeEstudiantes *alumno;
+    struct structNodoEstudiante *alumnos;
 }Materia;
 
 Materia *NewMateria(char *nom){
