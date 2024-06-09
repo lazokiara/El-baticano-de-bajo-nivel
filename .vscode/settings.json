@@ -6,7 +6,8 @@
         "materias.h": "c",
         "string.h": "c",
         "stdbool.h": "c",
-        "structs.h": "c"
+        "structs.h": "c",
+        "stdlib.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

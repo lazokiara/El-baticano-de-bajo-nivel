@@ -186,8 +186,8 @@ int main()
                         break;
                     }
                     printf("Ingrese el nuevo nombre y apellido del estudiante: \n");
-                    char *new_nombre[50];
-                    char *new_apellido[50];
+                    char new_nombre[50];
+                    char new_apellido[50];
                     scanf("%s %s", new_nombre,new_apellido);
                     modificarNombreDeEstudiante(lista_de_estudiante, legajo_buscado,new_nombre, new_apellido);
                     printf("Estudiante %s %s renombrado correctamente. \n", estudiante_buscado->nombre, estudiante_buscado->apellido);
@@ -196,7 +196,6 @@ int main()
                  case 7:
                 {
                     printf("Regresando...\n ------------------------- \n \n");
-                    loadingBar();
                     break;
                 }
                 default:
@@ -212,9 +211,9 @@ int main()
         case 2:
         {
             int opcion_materia = 0;
-            while (opcion_materia != 6)
+            while (opcion_materia != 7)
             {
-                printf("Ingrese la opcion del menu: \n 1: Ingresar Materia. \n 2: Listar Materias. \n 3: Eliminar Materia. \n 4: Eliminar lista de materias. \n 5: Cambiar nombre de materia. \n 6: Cerrar menu \n");
+                printf("Ingrese la opcion del menu: \n 1: Ingresar Materia. \n 2: Listar Materias. \n 3: Eliminar Materia. \n 4: Eliminar lista de materias. \n 5: Cambiar nombre de materia. \n 6: Enlistar alumno en materia. \n 7: Cerrar menu. \n");
                 scanf("%d", &opcion_materia);
                 switch (opcion_materia)
                 {
@@ -314,7 +313,7 @@ int main()
                 {
 
                     printf("Ingrese la materia que desea renombrar: \n");
-                    char *nombre_buscado[50];
+                    char nombre_buscado[50];
                     scanf("%s", nombre_buscado);
                     Materia *materia_buscada = getMateriaPorNombre(lista_de_materias, nombre_buscado);
                     if(materia_buscada == NULL){
@@ -322,22 +321,44 @@ int main()
                         break;
                     }
                     printf("Ingrese el nuevo nombre de la materia: \n");
-                    char *new_nombre[50];
+                    char new_nombre[50];
                     scanf("%s", new_nombre);
                     modificarNombreMateria(materia_buscada, new_nombre);
                     printf("Materia %s renombrada correctamente. \n", materia_buscada->nombre);
                     break;
                 }
                 case 6:
-                {
-                    printf("Regresando al menu... \n");
-                    loadingBar();
+                {   char nombre[20];
+                    printf("Ingrese la materia en la que desea ingresar el alumno: \n ");
+                    scanf("%s", nombre);
+                    Materia *materia = getMateriaPorNombre(lista_de_materias, nombre);
+                    if (materia == NULL)
+                    {
+                        printf("Materia no existe");
+                        break;
+                    }
+                    int legajo;
+                    printf("Ingrese el legajo del alumno a enlistar: \n");
+                    scanf("%d", &legajo);
+                    Estudiante *estudiante = getEstudiantePorLegajo(lista_de_estudiante, legajo);
+                    if (estudiante == NULL)
+                    {
+                        printf("Estudiante no registrado en el sistema \n");
+                        break;
+                    }
+
+                    enlistarAlumnoEnMateria(materia, estudiante);
+                    printf("Alumno %s %s enlistado correctamente. \n Cantidad de alumnos en %s: %d \n", estudiante->nombre, estudiante->apellido, materia->nombre, materia->catn_alumnos);
                     break;
                 }
-
+                case 7:
+                {
+                    printf("Regresando...\n ------------------------- \n \n");
+                    break;
+                }
                 default:
                 {
-                    printf("Opcion invalida. Ingrese un numero del 1 al 6\n");
+                    printf("Opcion invalida. Ingrese un numero del 1 al 7\n");
                     printf("\n");
                     break;
                 }

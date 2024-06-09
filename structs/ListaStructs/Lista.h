@@ -97,7 +97,7 @@ void insertarOrdenadamente(ListaDeEstudiantes *list, Estudiante *entrada)
     {
         if (getEdad(GetEstudiante(ingreso->next->next)) >= getEdad(GetEstudiante(ingreso)))
         {
-            Estudiante *aux = ingreso->next->next;
+            NodoEstudiante *aux = ingreso->next->next;
             ingreso->next->next = ingreso;
             ingreso->next = aux;
             return;
@@ -318,6 +318,7 @@ void modificarNombreMateria(Materia *materia, char *nom) {
     materia->nombre = (char *)malloc((strlen(nom) + 1) * sizeof(char));
     strcpy(materia->nombre, nom);
 }
+
 void enlistarAlumnoEnMateria(Materia *materia, Estudiante *estudiante)
 {
     //NodoEstudiante *actual = materia->alumnos->head;
@@ -331,5 +332,49 @@ void enlistarAlumnoEnMateria(Materia *materia, Estudiante *estudiante)
     //     //anterior = actual;
     //     actual = actual->next;
     // }
-    //inserFinal(materia->alumnos, estudiante);
+    ListaDeEstudiantes *list_mat = NewListaDeEstudiante();
+    materia->alumnos= list_mat;
+    inserFinal(list_mat, estudiante);
+    materia->catn_alumnos++;
 }
+/*
+void enlistarAlumnoEnMateria(Materia materia, int legajo) {
+    NodoEstudiante nuevoNodo = (NodoEstudiante )malloc(sizeof(NodoEstudiante));
+    if (nuevoNodo == NULL) {
+        // Manejar error de memoria
+        return;
+    }
+    nuevoNodo->next = NULL;
+
+    // Verificar si el estudiante ya está en la lista
+    NodoEstudiantetemp = materia->estudiantes;
+    while (temp != NULL) {
+        if (temp->estudiante->legajo == legajo) {
+            // El estudiante ya está en la lista, no es necesario agregarlo nuevamente
+            free(nuevoNodo);
+            return;
+        }
+        temp = temp->next;
+    }
+
+    // El estudiante no está en la lista, entonces lo agregamos
+    Estudiante nuevoEstudiante = (Estudiante)malloc(sizeof(Estudiante));
+    if (nuevoEstudiante == NULL) {
+        // Manejar error de memoria
+        free(nuevoNodo);
+        return;
+    }
+    nuevoEstudiante->legajo = legajo;
+    nuevoNodo->estudiante = nuevoEstudiante;
+
+    if (materia->estudiantes == NULL) {
+        materia->estudiantes = nuevoNodo;
+    } else {
+        temp = materia->estudiantes;
+        while (temp->next != NULL) {
+            temp = temp->next;
+        }
+        temp->next = nuevoNodo;
+    }
+}
+*/
