@@ -1,64 +1,34 @@
 Consigna del TP final:
+#Integrantes : 
+    Ignacio Paris.
+    Ignacio Lobo.
+    Agustin Geraghty.
+    Martina Isla.
+    Kiara Lazo.
 
-Desarrollar un sistema de estudiantes en C. Debe permitir:
+#TP resolucion:
+En nuestro trabajo practico implementamos una lista de estudiantes en la cual:
+    Se puede agregar estudiantes con nombre, apellido, edad y un legajo.
+    Se puede acceder al estos mediante su nombre completo, legajo y listarlos todos o por un rango de edad deseado.
+    Se pueden ingresar 10 alumnos aleatorios.
+    Se puede eliminar a un alumno mediante su legajo.
+    Se puede eliminar la lista de alumnos.
+    Se puede editar el nombre y apellido de un estudiante por medio del legajo.
 
-PRINCIPAL:
--Modificar estudiante
--Eliminar estudiante (por nombre o dni)
+Tambien esta implementada una lista de materias en la cual:
+    Se puede agregar materias que tendran; nombre, una lista de alumnos, una de alumnos aprobados y otra de desaprobados.
+    Se puede listar las materias donde se puede ver el nombre, cantidad de alumnos, porcentaje de alumnos aprobados y desaprobados.
+    Se pueden ingresar 5 materias aleatorias.
+    Se puede eliminar una materia mediante su nombre.
+    Se puede eliminar la lista de materias.
+    Se puede editar el nombre de la materia.
+    Se puede obtener el promedio de un alumno cursante y se lo clasifica en base a si aprobo o desaprobo la materia.
+    Se puede listar a los alumnos de una materia en su totalidad, por aprobados y por desaprobados.
 
--Eliminar, modificar materia
--Anotarse a materia
--Rendir materia
-
-2 PUNTOS SECUNDARIOS PARA APROBAR:
--paginado OK
--poder elegir el estudiante/materia de un listado reducido
--generar estudiantes de prueba y materias aleatorias de forma masiva OK
--estadísticas de los estudiantes y materias, etc.
--árboles de correlatividad de materias
--qué pasa si una materia anterior está desaprobada? Puede anotarse?
--cálculo de promedios.
--archivo de configuración general donde se especifican las variables del sistema.
--mejoras en la interfaz de usuario
--tests unitarios
--Persistencia en CSV
-
-Nuestro menu incluye ademas las siguientes features:
-    -Generar estudiatntes de prueba de forma aleatoria
-
--Dar de //alta, modificar, eliminar y //listar estudiantes 
--Buscar estudiantes por nombre
--//Buscar estudiantes por rango de edad
-
-Además cada estudiante puede anotarse en N materias.
--Dar de alta, modificar, eliminar y listar materias
--Anotarse en una materia
--Rendir una materia
-
-El sistema debe poder soportar un gran listado de estudiantes y materias. Utilizar estructuras de datos para almacenar los listados. Decidir si se utiliza ordenamiento de los datos.
-
-El diseño del sistema y los modelos es libre. Utilizar la creatividad para que el manejo del sistema sea lo más práctico posible.
-
-Si los requerimientos planteados son cumplidos, el ejercicio está aprobado (nota 4). Puede pasar que en situaciones en la que la cantidad de datos sea muy grande, el sistema sea inmanejable. En ese caso, detallar las limitaciones de la solución propuesta (si las limitaciones son reconocidas no se considera desaprobado el punto).
-
-Ideas no-obligatorias de implementar pero que suman puntos:
-utilizar paginado
-poder elegir el estudiante/materia de un listado reducido
-generar estudiantes de prueba y materias aleatorias de forma masiva
-estadísticas de los estudiantes y materias, etc.
-árboles de correlatividad de materias
-qué pasa si una materia anterior está desaprobada? Puede anotarse?
-cálculo de promedios.
-archivo de configuración general donde se especifican las variables del sistema.
-mejoras en la interfaz de usuario
-tests unitarios
-Persistencia en CSV
-(cualquier otra feature que quieran agregar)
-
-En el repositorio hacer un README con los integrantes, las consignas implementadas y los puntos extras que hayan desarrollado.
-
-El trabajo se puede hacer de a cinco, cuatro o tres personas.
-Si el equipo tiene 4 personas deben hacer obligatoriamente un punto extra más para la nota 4.
-Si el equipo tiene 5 personas deben hacer obligatoriamente dos puntos extra más para la nota 4.
-
-Grabar un video de máximo 10 minutos (puede ser menos) mostrando el funcionamiento del sistema y los puntos implementados. En esta oportunidad no es necesario enfocarse tanto en el código, ya que se puede ver en el repositorio. Concéntrese en presentar el proyecto funcionando.
+#Puntos extras implementados:
+    Paginado.
+    Generar estudiantes y materias de prueba aleatoriamente.
+    Estadísticas de los estudiantes y materias.
+    Calculo de promedios.
+    Obtener estudiantes de un listado reducido(hubo dificultades al implementar la seleccion de un listado reducido de materias).
+    Mejoras en la interfaz de usuario.
