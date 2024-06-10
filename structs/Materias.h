@@ -45,7 +45,7 @@ void imprimirMateria(Materia *materia)
     }
 }
 
-char *materias[10] = {"Matematica Discreta", "AYP1", "AYP2", "Programacion de Bajo Nivel", "Diseño Logico", "Algebra I", "Ingles Basico", "Ingles Tecnico", "Estructura de Datos", "Cultura Contemporanea"};
+char *materias[15] = {"Matematica_Discreta", "AYP1", "AYP2", "Programacion_de_Bajo_Nivel", "Disenio_Logico", "Algebra1", "Ingles_Basico", "Ingles_Tecnico", "Estructura_de_Datos", "Cultura_Contemporanea", "Algebra2", "Analisis1", "Analisis2", "Fisica1", "Fisica2"};
 
 char *generarNombreDeMateria()
 {

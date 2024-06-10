@@ -256,17 +256,21 @@ int main()
             int opcion_materia = 0;
             while (opcion_materia != 10)
             {
-                printf("Ingrese la opcion del menu: \n 0: Generar materias aleatoriamente. \n 1: Ingresar Materia. \n 2: Listar Materias. \n 3: Eliminar Materia. \n 4: Eliminar lista de materias. \n 5: Cambiar nombre de materia. \n 6: Enlistar alumno en materia. \n 7: Dar de baja de la materia a un alumno. \n 8: Promediar alumno por materia \n 9: Imprimir alumnos de materia. \n 10: Cerrar menu. \n");
+                printf("Ingrese la opcion del menu: \n 0: Generar materias aleatoriamente. \n 1: Ingresar Materia. \n 2: Listar Materias. \n 3: Eliminar Materia. \n 4: Eliminar lista de materias. \n 5: Cambiar nombre de materia. \n 6: Enlistar alumno en materia. \n 7: Dar de baja de la materia a un alumno. \n 8: Promediar alumno por materia. \n 9: Imprimir alumnos de materia. \n 10: Cerrar menu. \n");
                 scanf("%d", &opcion_materia);
                 system("cls");
                 switch (opcion_materia)
                 {
                 case 0:
                 {
-                    for (int i = 0; i < 5; i++)
+                  for (int i = 0; i < 5; i++)
                     {
                         Materia *random_mat = NewMateria(generarNombreDeMateria());
-                        addMateria(lista_de_materias, random_mat);
+                        Materia *contains = getMateriaPorNombre(lista_de_materias, getNombreMateria(random_mat));
+                        if (contains == NULL)
+                        {
+                            addMateria(lista_de_materias, random_mat);
+                        }
                     }
                     break;
                 }
@@ -276,6 +280,12 @@ int main()
                     char nombre[20];
                     printf("Ingrese el nombre de la materia: ");
                     scanf("%s", nombre);
+                    Materia *contains = getMateriaPorNombre(lista_de_materias, nombre);
+                    if (contains != NULL)
+                    {
+                        printf("La materia ya se encuentra en el sistema\n");
+                        break;
+                    }
                     Materia *materia = NewMateria(nombre);
                     addMateria(lista_de_materias, materia);
                     printf("Materia %s registrada correctamente \n", getNombreMateria(materia));
@@ -343,7 +353,7 @@ int main()
                 case 4:
                 {
 
-                    printf("¿Desea eliminar la lista de materias?\n 1: Si. \n 2:No. \n ");
+                    printf("¿Desea eliminar la lista de materias?\n 1: Si. \n 2: No. \n ");
                     int confi = 0;
                     scanf("%d", &confi);
                     if (confi == 1)
@@ -418,7 +428,7 @@ int main()
                         break;
                     }
                     int legajo;
-                    printf("Ingrese el legajo del alumno a enlistar: \n");
+                    printf("Ingrese el legajo del alumno a dar de baja: \n");
                     scanf("%d", &legajo);
                     ListaDeEstudiantes *lista_aux = NewListaDeEstudiante();
                     lista_aux = materia->alumnos;
@@ -428,7 +438,7 @@ int main()
                         printf("Estudiante no registrado en la materia \n");
                         break;
                     }
-                    printf("¿Desea eliminar al alumno %s %s de %s?\n 1: Si. \n 2:No. \n ", estudiante->nombre, estudiante->apellido, materia->nombre);
+                    printf("¿Desea eliminar al alumno %s %s de %s?\n 1: Si. \n 2: No. \n ", estudiante->nombre, estudiante->apellido, materia->nombre);
                     int confi = 0;
                     scanf("%d", &confi);
                     if (confi == 1)

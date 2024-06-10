@@ -410,6 +410,14 @@ void eliminarAlumoDeMateria(Materia *mat, Estudiante *estudiante)
     ListaDeEstudiantes *list_mat = NewListaDeEstudiante();
     list_mat = mat->alumnos;
     eliminarEstudiante(list_mat, estudiante);
+   if(getEstudiantePorLegajo(mat->alumnos_aprobados, estudiante->legajo) != NULL){
+        eliminarEstudiante(mat->alumnos_aprobados, estudiante);
+        mat->catn_alumnos_aprobados--;
+    }
+    if(getEstudiantePorLegajo(mat->alumnos_desaprobados, estudiante->legajo) != NULL){
+        eliminarEstudiante(mat->alumnos_desaprobados, estudiante);
+        mat->catn_alumnos_desaprobados--;
+    }
     mat->catn_alumnos--;
 }
 
