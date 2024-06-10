@@ -1,4 +1,4 @@
-#include <stdio.h>
+ #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
@@ -97,7 +97,7 @@ int main()
                 }
                 case 3:
                 {
-                    printf("Buscar Alumnos.\n ------------------------- \n 1: Buscar por nombre. \n 2: Buscar por legajo. \n 3 Buscar por rango de edad. \n");
+                    printf("Buscar Alumnos.\n ------------------------- \n 1: Buscar por nombre. \n 2: Buscar por legajo. \n 3: Buscar por rango de edad. \n");
                     int opcion_busc_alum = 0;
                     scanf("%d", &opcion_busc_alum);
                     switch (opcion_busc_alum)
@@ -256,7 +256,7 @@ int main()
             int opcion_materia = 0;
             while (opcion_materia != 10)
             {
-                printf("Ingrese la opcion del menu: \n 0: Generar materias aleatoriamente. \n 1: Ingresar Materia. \n 2: Listar Materias. \n 3: Eliminar Materia. \n 4: Eliminar lista de materias. \n 5: Cambiar nombre de materia. \n 6: Enlistar alumno en materia. \n 7: Dar de baja de la materia a un alumno. \n 8: Promediar alumno por materia \n 9: Imprimir alumnos de Materia. \n 10: Cerrar menu. \n");
+                printf("Ingrese la opcion del menu: \n 0: Generar materias aleatoriamente. \n 1: Ingresar Materia. \n 2: Listar Materias. \n 3: Eliminar Materia. \n 4: Eliminar lista de materias. \n 5: Cambiar nombre de materia. \n 6: Enlistar alumno en materia. \n 7: Dar de baja de la materia a un alumno. \n 8: Promediar alumno por materia \n 9: Imprimir alumnos de materia. \n 10: Cerrar menu. \n");
                 scanf("%d", &opcion_materia);
                 system("cls");
                 switch (opcion_materia)
