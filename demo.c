@@ -37,6 +37,7 @@ int main()
     {
         printf("Ingrese la opcion del menu \n \n 1: Acceder a lista de alumnos. \n 2: Acceder a lista de materias. \n 3: Cerrar menu. \n");
         scanf("%d", &opcion_principal);
+        system("cls");
         switch (opcion_principal)
         {
 
@@ -45,9 +46,9 @@ int main()
             int opcion_alumnos = 0;
             while (opcion_alumnos != 7)
             {
-                printf("Ingrese la opcion del menu: \n 0: Ingresar alumnos aleatorios. \n 1: Ingresar Alumno. \n 2: Listar Alumnos. \n 3: Buscar alumnos por rango de edad. \n 4: Eliminar alumno: \n 5: Eliminar lista de alumnos. \n 6: Renombrar alumno. \n 7: Volver al menu principal \n");
+                printf("Ingrese la opcion del menu: \n 0: Ingresar 10 alumnos aleatorios. \n 1: Ingresar Alumno. \n 2: Listar Alumnos. \n 3: Buscar alumnos. \n 4: Eliminar alumno: \n 5: Eliminar lista de alumnos. \n 6: Renombrar alumno. \n 7: Volver al menu principal \n");
                 scanf("%d", &opcion_alumnos);
-
+                system("cls");
                 switch (opcion_alumnos)
                 {
                 case 0:
@@ -96,20 +97,68 @@ int main()
                 }
                 case 3:
                 {
-                    printf("Buscar Alumnos por rango de edad\n ------------------------- \nIngrese rango de edad (minimo y maximo):  ");
-                    int edad_min;
-                    int edad_max;
-                    scanf("%d %d", &edad_min, &edad_max);
-                    printf("\n\n");
-                    if (edad_min < 1)
+                    printf("Buscar Alumnos.\n ------------------------- \n 1: Buscar por nombre. \n 2: Buscar por legajo. \n 3 Buscar por rango de edad. \n");
+                    int opcion_busc_alum = 0;
+                    scanf("%d", &opcion_busc_alum);
+                    switch (opcion_busc_alum)
                     {
-                        printf("Edad minima invalida.\n");
+                    case 1:
+                    {
+                        char nomb[20];
+                        char apel[20];
+                        printf("\nIntroduzca el nombre del alumno a buscar: ");
+                        scanf("%s %s", nomb, apel);
+
+                        Estudiante *alum_busc = getEstudiantePorNombre(lista_de_estudiante, nomb, apel);
+                        if (alum_busc == NULL)
+                        {
+                            printf("\nNo se encontro al alumno.\n");
+                            break;
+                        }
+
+                        imprimirEstudiante(alum_busc);
+                        break;
+                    }
+                    case 2:
+                    {
+                        printf("\nIntroduzca el legajo del alumno a buscar: ");
+                        int legaj = 0;
+                        scanf("%d", &legaj);
+
+                        Estudiante *alum_busc = getEstudiantePorLegajo(lista_de_estudiante, legaj);
+                        if (alum_busc == NULL)
+                        {
+                            printf("\nNo se encontro al alumno.\n");
+                            break;
+                        }
+
+                        imprimirEstudiante(alum_busc);
+                        break;
+                    }
+                    case 3:
+                    {
+                        int edad_min;
+                        int edad_max;
+                        printf("Ingresar rango (minimo y maximo): ");
+                        scanf("%d %d", &edad_min, &edad_max);
+                        printf("\n\n");
+                        if (edad_min < 1)
+                        {
+                            printf("Edad minima invalida.\n");
+                            printf("\n");
+                            break;
+                        }
+                        printf("Listado de Estudiantes por Rango de edad: \n");
+                        imprimirEstudiantesPorRangoDeEdad(lista_de_estudiante, edad_min, edad_max);
                         printf("\n");
                         break;
                     }
-                    printf("Listado de Estudiantes por Rango de edad: \n");
-                    imprimirEstudiantesPorRangoDeEdad(lista_de_estudiante, edad_min, edad_max);
-                    printf("\n");
+                    default:
+                    {
+                        printf("Opcion Invalida.\n");
+                        break;
+                    }
+                    }
                     break;
                 }
                 case 4:
@@ -149,7 +198,6 @@ int main()
                 }
                 case 5:
                 {
-
                     printf("¿Desea eliminar la lista de alumnos?\n 1: Si. \n 2:No. \n ");
                     int confi = 0;
                     scanf("%d", &confi);
@@ -208,10 +256,20 @@ int main()
             int opcion_materia = 0;
             while (opcion_materia != 10)
             {
-                printf("Ingrese la opcion del menu: \n 1: Ingresar Materia. \n 2: Listar Materias. \n 3: Eliminar Materia. \n 4: Eliminar lista de materias. \n 5: Cambiar nombre de materia. \n 6: Enlistar alumno en materia. \n 7: Dar de baja de la materia a un alumno. \n 8: Promediar alumno por materia \n 9: Imprimir alumnos de Materia. \n 10: Cerrar menu. \n");
+                printf("Ingrese la opcion del menu: \n 0: Generar materias aleatoriamente. \n 1: Ingresar Materia. \n 2: Listar Materias. \n 3: Eliminar Materia. \n 4: Eliminar lista de materias. \n 5: Cambiar nombre de materia. \n 6: Enlistar alumno en materia. \n 7: Dar de baja de la materia a un alumno. \n 8: Promediar alumno por materia \n 9: Imprimir alumnos de Materia. \n 10: Cerrar menu. \n");
                 scanf("%d", &opcion_materia);
+                system("cls");
                 switch (opcion_materia)
                 {
+                case 0:
+                {
+                    for (int i = 0; i < 5; i++)
+                    {
+                        Materia *random_mat = NewMateria(generarNombreDeMateria());
+                        addMateria(lista_de_materias, random_mat);
+                    }
+                    break;
+                }
                 case 1:
                 {
                     printf("Lista materias\n ------------------------- \n \n");
@@ -232,7 +290,7 @@ int main()
                     if (lista_de_materias->head == NULL || lista_de_materias->size < 1)
                     {
                         printf("El sistema no tiene materias registradas.\n");
-                        printf("\n");
+                        break;
                     }
                     else
                     {
@@ -244,8 +302,8 @@ int main()
                             printf("\n");
                             mat = mat->next;
                         }
-                        printf("\n");
                     }
+                    printf("\n");
                     break;
                 }
                 case 3:
@@ -291,7 +349,7 @@ int main()
                     if (confi == 1)
                     {
                         loadingBar();
-                        eliminarListaDeMaterias(lista_de_materias);
+                        clearListaDeMaterias(lista_de_materias);
                         printf("Lista eliminada\n ------------------------- \n \n");
                     }
                     else if (confi == 2)
@@ -515,9 +573,8 @@ int main()
             break;
         }
         }
+        // system("cls");
     }
-
-    // system("cls");
 
     return 0;
 }

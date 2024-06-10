@@ -11,9 +11,9 @@ PRINCIPAL:
 -Rendir materia
 
 2 PUNTOS SECUNDARIOS PARA APROBAR:
--paginado
+-paginado OK
 -poder elegir el estudiante/materia de un listado reducido
--generar estudiantes de prueba y materias aleatorias de forma masiva
+-generar estudiantes de prueba y materias aleatorias de forma masiva OK
 -estadísticas de los estudiantes y materias, etc.
 -árboles de correlatividad de materias
 -qué pasa si una materia anterior está desaprobada? Puede anotarse?
@@ -23,7 +23,8 @@ PRINCIPAL:
 -tests unitarios
 -Persistencia en CSV
 
-
+Nuestro menu incluye ademas las siguientes features:
+    -Generar estudiatntes de prueba de forma aleatoria
 
 -Dar de //alta, modificar, eliminar y //listar estudiantes 
 -Buscar estudiantes por nombre

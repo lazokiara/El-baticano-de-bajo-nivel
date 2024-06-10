@@ -91,8 +91,6 @@ void insertarOrdenadamente(ListaDeEstudiantes *list, Estudiante *entrada)
     // Nodo a ingresar apunta al head
     NodoEstudiante *ingreso = NewNodoEstudiante(entrada);
     ingreso->next = list->head;
-    // NodoEstudiante *cursor = NewNodoEstudiante(list->head);
-
     while (ingreso->next->next != NULL)
     {
         if (getEdad(GetEstudiante(ingreso->next->next)) >= getEdad(GetEstudiante(ingreso)))
@@ -106,7 +104,9 @@ void insertarOrdenadamente(ListaDeEstudiantes *list, Estudiante *entrada)
         ingreso->next = ingreso->next->next;
     }
 }
-
+/// @brief Elimina un estudiante de la lista
+/// @param list
+/// @param estudiante
 void eliminarEstudiante(ListaDeEstudiantes *list, Estudiante *estudiante)
 {
     NodoEstudiante *actual = list->head;
@@ -161,7 +161,6 @@ void eliminarListaDeEstudiantes(ListaDeEstudiantes *lista)
     lista->size = 0;
 }
 
-// Sin Usar
 /// @param list
 /// @param edad
 /// @return Devuelve el primer estudiante que se encuentra en la lista a partir de una edad
@@ -182,9 +181,32 @@ Estudiante *getEstudiantePorLegajo(ListaDeEstudiantes *list, int legajo)
     return NULL;
 }
 
+Estudiante *getEstudiantePorNombre(ListaDeEstudiantes *list, char *name, char *surn)
+{
+    if (list != NULL && SizeOfEst(list) > 0)
+    {
+
+        NodoEstudiante *it = list->head;
+        while (it != NULL)
+        {
+            if (stricmp(getApellido(GetEstudiante(it)), surn) == 0 && stricmp(getNombre(GetEstudiante(it)), name) == 0)
+            {
+                return GetEstudiante(it);
+            }
+
+            it = it->next;
+        }
+    }
+    return NULL;
+}
+
+/// @brief Cambia los datos del estudiante por los nuevos ingresados
+/// @param estud
+/// @param nom
+/// @param ape
 void modificarNombreDeEstudiante(Estudiante *estud, char *nom, char *ape)
 {
-    // Estudiante *aux = getEstudiantePorLegajo(list, legajo);
+
     free(estud->nombre);
     free(estud->apellido);
     estud->nombre = (char *)malloc((strlen(nom) + 1) * sizeof(char));
@@ -192,6 +214,7 @@ void modificarNombreDeEstudiante(Estudiante *estud, char *nom, char *ape)
     strcpy(estud->nombre, nom);
     strcpy(estud->apellido, ape);
 }
+
 /// @brief Imprime todos los estudiantes que tengan la edad ingresada
 /// @param list
 /// @param edad
@@ -212,6 +235,8 @@ void imprimirEstudiantesPorRangoDeEdad(ListaDeEstudiantes *list, int edadMin, in
     }
 }
 
+/// @brief Imprime todos los estudiantes de la lista.
+/// @param list
 void imprimirListaDeEstudiantes(ListaDeEstudiantes *list)
 {
     if (list == NULL || list->head == NULL)
@@ -253,6 +278,9 @@ int SizeOfMat(ListaDeMaterias *list)
     return list->size;
 }
 
+/// @brief Añade una materia a la lista de materias.
+/// @param list
+/// @param materia
 void addMateria(ListaDeMaterias *list, Materia *materia)
 {
     NodoMateria *node = NewNodoMateria(materia);
@@ -272,6 +300,10 @@ void addMateria(ListaDeMaterias *list, Materia *materia)
     }
     list->size++;
 }
+
+/// @brief Elimina un estudiante de la lista de materias.
+/// @param list
+/// @param matteria
 void eliminarMateria(ListaDeMaterias *list, Materia *matteria)
 {
 
@@ -310,7 +342,10 @@ void eliminarMateria(ListaDeMaterias *list, Materia *matteria)
     }
     list->size--;
 }
-void eliminarListaDeMaterias(ListaDeMaterias *lista)
+
+/// @brief Clear de la lista de materias.
+/// @param lista
+void clearListaDeMaterias(ListaDeMaterias *lista)
 {
     NodoMateria *actual = lista->head;
     NodoMateria *siguiente;
@@ -326,6 +361,10 @@ void eliminarListaDeMaterias(ListaDeMaterias *lista)
     lista->tail = NULL;
     lista->size = 0;
 }
+
+/// @param list
+/// @param nombre
+/// @return devuelve una materia de la lista a partir del nombre ingresado.
 Materia *getMateriaPorNombre(ListaDeMaterias *list, char *nombre)
 {
     NodoMateria *materia = list->head;
@@ -339,6 +378,10 @@ Materia *getMateriaPorNombre(ListaDeMaterias *list, char *nombre)
     }
     return NULL;
 }
+
+/// @brief Modifica nombre de materia por el nuevo.
+/// @param materia
+/// @param nom
 void modificarNombreMateria(Materia *materia, char *nom)
 {
     free(materia->nombre);
@@ -346,18 +389,22 @@ void modificarNombreMateria(Materia *materia, char *nom)
     strcpy(materia->nombre, nom);
 }
 
+/// @brief Agrega a la lista de alumnos cursantes de la materia el estudiante ingresado.
+/// @param materia 
+/// @param estudiante 
 void enlistarAlumnoEnMateria(Materia *materia, Estudiante *estudiante)
 {
     if (materia->alumnos == NULL)
     {
         materia->alumnos = NewListaDeEstudiante();
     }
-
-    // materia->alumnos = list_mat;
     inserFinal(materia->alumnos, estudiante);
     materia->catn_alumnos++;
 }
 
+/// @brief Elimina un alumno de la lista de estudiantes de la materia ingresada.
+/// @param mat 
+/// @param estudiante 
 void eliminarAlumoDeMateria(Materia *mat, Estudiante *estudiante)
 {
     ListaDeEstudiantes *list_mat = NewListaDeEstudiante();
@@ -365,6 +412,11 @@ void eliminarAlumoDeMateria(Materia *mat, Estudiante *estudiante)
     eliminarEstudiante(list_mat, estudiante);
     mat->catn_alumnos--;
 }
+
+/// @brief El estudiante rinde la materia, segun el promedio se añade a la lista de aprobados o desaprobados
+/// @param mat 
+/// @param alumno 
+/// @param promedio 
 void rendirMateria(Materia *mat, Estudiante *alumno, float promedio)
 {
     if (promedio >= 4)
@@ -388,16 +440,3 @@ void rendirMateria(Materia *mat, Estudiante *alumno, float promedio)
         printf("Alumno desaprobo con un promedio de: %f \n", promedio);
     }
 }
-
-// void imprimirAlumnosDeLaMateria(Materia *mat)
-// {
-//     printf("Materia: %s\n", getNombreMateria(mat));
-//     printf("-----Alumnos de la Materia:\n");
-//     imprimirListaDeEstudiantes(mat->alumnos);
-//     printf("-----Alumnos aprobados de la Materia:\n");
-//     imprimirListaDeEstudiantes(mat->alumnos_aprobados);
-//     printf("-----Alumnos desaprobados de la Materia:\n");
-//     imprimirListaDeEstudiantes(mat->alumnos_desaprobados);
-
-//     printf("Porcentaje de aprobados: %d por ciento", ((mat->catn_alumnos_aprobados * 100) / mat->catn_alumnos));
-// }

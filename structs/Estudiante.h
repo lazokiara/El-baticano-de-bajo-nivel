@@ -21,20 +21,10 @@ Estudiante *NewEstudiante(char *nom, char *ap, int ed, int leg)
 {
     Estudiante *estudiante;
     estudiante = (Estudiante *)malloc(sizeof(Estudiante));
-    // if (estudiante == NULL)
-    // {
-    //     printf("Error al asignar memoria\n");
-    //     exit(1);
-    // }
+    
     estudiante->nombre = (char *)malloc((strlen(nom) + 1) * sizeof(char));
     estudiante->apellido = (char *)malloc((strlen(ap) + 1) * sizeof(char));
-    // if (estudiante->nombre == NULL || estudiante->apellido == NULL)
-    // {
-    //     printf("Error al asignar memoria\n");
-    //     free(estudiante);
-    //     exit(1);
-    // }
-    strcpy(estudiante->nombre, nom);
+        strcpy(estudiante->nombre, nom);
     strcpy(estudiante->apellido, ap);
     estudiante->edad = ed;
     estudiante->legajo = leg;
@@ -43,10 +33,12 @@ Estudiante *NewEstudiante(char *nom, char *ap, int ed, int leg)
 
 void imprimirEstudiante(Estudiante *estudiante)
 {
-    if (estudiante != NULL)
+    if (estudiante == NULL)
     {
-        printf("Estudiante: %s %s \n----Edad: %d\n----Legajo: %d \n\n", getNombre(estudiante), getApellido(estudiante), getEdad(estudiante), getLegajo(estudiante));
+        printf("No se encuentra al estudiante.\n");
+        return;
     }
+    printf("Estudiante: %s %s \n----Edad: %d\n----Legajo: %d \n\n", getNombre(estudiante), getApellido(estudiante), getEdad(estudiante), getLegajo(estudiante));
 }
 
 int getEdad(Estudiante *alumn)
@@ -82,18 +74,18 @@ char *generarNombreAleatorio()
 
 char *generarApellidoAleatorio()
 {
-    int indice = rand() % 12;
-    char *apellido = (char *)malloc((strlen(apellidos[indice]) + 1) * sizeof(char));
-    strcpy(apellido, apellidos[indice]);
+    int i = rand() % 12;
+    char *apellido = (char *)malloc((strlen(apellidos[i]) + 1) * sizeof(char));
+    strcpy(apellido, apellidos[i]);
     return apellido;
 }
 
 int generarEdadAleatoria()
 {
-    return rand() % 73 + 18; // Edad entre 18 y 90 años
+    return rand() % 73 + 18;
 }
 
 int generarLegajoAleatorio()
 {
-    return rand() % 100000;
+    return rand() % 99999 + 1;
 }
